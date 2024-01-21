@@ -41,4 +41,10 @@ export class ManagerService {
       data
     );
   }
+
+  deleteCandidate(candidateId: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(
+      environment.server + '/api/candidate/' + candidateId
+    );
+  }
 }

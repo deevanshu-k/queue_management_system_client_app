@@ -145,6 +145,27 @@ export class QueueComponent {
     }
   }
 
+  deleteCandidate(candidateId: string){
+    this.managerService.deleteCandidate(candidateId).subscribe({
+      next: (data) => {
+        if(this.queueData?.candidates){
+          this.queueData.candidates = this.queueData.candidates.filter(c => c.id != candidateId);
+        }
+        this.candidates = this.candidates.filter(c => c.id != candidateId);
+        this.calculateNoOfDoneCandidates();
+      },
+      error: (error) => {
+        alert(error.error.message)
+      }
+    });
+  }
+
+  confirmDeleteCandidate(candidateId: string, candidateName: string){
+    if(confirm("Are you sure you want to delete "+ candidateName + ".")){
+      this.deleteCandidate(candidateId)
+    }
+  }
+
   calculateNoOfDoneCandidates(){
     this.noOfDoneCandidates = this.candidates.filter(d => d.status==true).length;
   }

@@ -179,7 +179,7 @@
                     <i class="pi pi-pencil" (click)="candidate.edit = true"></i>
                   </div>
                   <div class="mx-2" style="line-height: 35px">
-                    <i class="pi pi-trash"></i>
+                    <i class="pi pi-trash" (click)="confirmDeleteCandidate(candidate.id,candidate.name)"></i>
                   </div>
                   <div class="mx-2" *ngIf="candidate.edit" style="line-height: 35px">
                     <i class="pi pi-times" (click)="candidate.edit = false;resetCandidateData(i)"></i>
