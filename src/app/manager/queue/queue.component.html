@@ -2,11 +2,26 @@
   <p-card [header]="'Queue Management Panel'">
     <div class="row position-relative">
       <div
-        class="position-absolute bg-primary badge p-2 text-bg-primary"
-        style="right: 10px; top: -60px; width: 70px"
+        *ngIf="queueData"
+        [ngClass]="{
+          'text-bg-primary': queueData.status == 'ONGOING',
+          'text-bg-success': queueData.status == 'COMPLETED',
+          'text-bg-secondary': queueData.status == 'PENDING'
+        }"
+        class="position-absolute badge p-2"
+        style="right: 10px; top: -60px; max-width: 100px"
       >
-        <span class="fs-7" style="letter-spacing: 1px"> Live </span>
+        <span class="fs-7" style="letter-spacing: 1px">
+          {{
+            queueData.status == "ONGOING"
+              ? "Live"
+              : queueData.status == "PENDING"
+              ? "Not started"
+              : "Completed"
+          }}
+        </span>
         <div
+          *ngIf="queueData.status == 'ONGOING'"
           class="spinner-grow"
           role="status"
           style="width: 10px; height: 10px"
@@ -38,7 +53,11 @@
           </div>
           <div class="field queue_manage d-flex mb-3">
             <label class="form-label me-2">Type</label>
-            <select [(ngModel)]="queue.type" class="form-select" aria-label="Default select example">
+            <select
+              [(ngModel)]="queue.type"
+              class="form-select"
+              aria-label="Default select example"
+            >
               <option value="INTERNAL">Internal</option>
               <option value="EXTERNAL">External</option>
               <option value="INTERVIEW">Interview</option>
@@ -46,7 +65,11 @@
           </div>
           <div class="field queue_manage d-flex mb-3">
             <label class="form-label me-2">Status</label>
-            <select [(ngModel)]="queue.status" class="form-select" aria-label="Default select example">
+            <select
+              [(ngModel)]="queue.status"
+              class="form-select"
+              aria-label="Default select example"
+            >
               <option value="PENDING">Not Started</option>
               <option value="ONGOING">Live</option>
               <option value="COMPLETED">Completed</option>
@@ -75,8 +98,32 @@
             />
           </div>
           <div class="actions">
-           <button (click)="saveQueueData()" [disabled]="queue.topic === queueData.topic && queue.type === queueData.type && queue.status === queueData.status && queue.startdate === queueData.startdate && queue.starttime === queueData.starttime" class="btn btn-primary me-2">Save</button>
-           <button (click)="resetQueueData()" [disabled]="queue.topic === queueData.topic && queue.type === queueData.type && queue.status === queueData.status && queue.startdate === queueData.startdate && queue.starttime === queueData.starttime" class="btn btn-danger">Reset</button>
+            <button
+              (click)="saveQueueData()"
+              [disabled]="
+                queue.topic === queueData.topic &&
+                queue.type === queueData.type &&
+                queue.status === queueData.status &&
+                queue.startdate === queueData.startdate &&
+                queue.starttime === queueData.starttime
+              "
+              class="btn btn-primary me-2"
+            >
+              Save
+            </button>
+            <button
+              (click)="resetQueueData()"
+              [disabled]="
+                queue.topic === queueData.topic &&
+                queue.type === queueData.type &&
+                queue.status === queueData.status &&
+                queue.startdate === queueData.startdate &&
+                queue.starttime === queueData.starttime
+              "
+              class="btn btn-danger"
+            >
+              Reset
+            </button>
           </div>
         </p-card>
       </div>
@@ -87,7 +134,7 @@
               class="position-absolute"
               style="z-index: 9; right: 0px; top: -60px"
             >
-              {{10}}/{{candidates.length}}
+              {{ 10 }}/{{ candidates.length }}
             </div>
             <div
               class="card mb-3 candidate-card shadow-sm"
