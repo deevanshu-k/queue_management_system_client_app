@@ -1,0 +1,18 @@
+.form-control-sm:disabled {
+    background-color: transparent;
+    /* border: 0px; */
+    border-color: transparent;
+    opacity: 1;
+}
+
+.queue_manage label{
+    width: 100px;
+}
+
+.active-card {
+    border-color: rgba(9, 133, 9, 0.699);
+}
+
+.candidate-card .actions :is(i ,input){
+    cursor: pointer;
+}

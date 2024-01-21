@@ -4,12 +4,11 @@ import { MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ProgressSpinnerModule, ToastModule, HttpClientModule],
+  imports: [ProgressSpinnerModule, ToastModule],
   providers: [MessageService, AuthService],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',

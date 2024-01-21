@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 export interface Queue {
   id: string;
   topic: string;
-  type: string;
+  type: 'INTERNAL' | 'EXTERNAL' | 'INTERVIEW';
   status: 'PENDING' | 'ONGOING' | 'COMPLETED';
   managername: string;
   startdate: string;
@@ -23,7 +23,7 @@ export interface Candidate {
 
 export interface UpdateQueue {
   topic?: string;
-  type?: string;
+  type?: 'INTERNAL' | 'EXTERNAL' | 'INTERVIEW';
   status?: 'PENDING' | 'ONGOING' | 'COMPLETED';
   managername?: string;
   startdate?: string;

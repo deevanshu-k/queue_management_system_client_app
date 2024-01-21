@@ -1,1 +1,151 @@
-<p>queue works!</p>
+<div class="main container p-3">
+  <p-card [header]="'Queue Management Panel'">
+    <div class="row position-relative">
+      <div
+        class="position-absolute bg-primary badge p-2 text-bg-primary"
+        style="right: 10px; top: -60px; width: 70px"
+      >
+        <span class="fs-7" style="letter-spacing: 1px"> Live </span>
+        <div
+          class="spinner-grow"
+          role="status"
+          style="width: 10px; height: 10px"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <div class="col-4">
+        <p-card *ngIf="queue && queueData">
+          <div class="field queue_manage d-flex mb-3">
+            <label for="topicinput" class="form-label me-2">Topic</label>
+            <input
+              type="text"
+              class="form-control"
+              id="topicinput"
+              placeholder="eg: company name"
+              [(ngModel)]="queue.topic"
+            />
+          </div>
+          <div class="field queue_manage d-flex mb-3">
+            <label for="managername" class="form-label me-2">Manager</label>
+            <input
+              type="text"
+              class="form-control"
+              id="managername"
+              placeholder="eg: company name"
+              [(ngModel)]="queue.managername"
+            />
+          </div>
+          <div class="field queue_manage d-flex mb-3">
+            <label class="form-label me-2">Type</label>
+            <select [(ngModel)]="queue.type" class="form-select" aria-label="Default select example">
+              <option value="INTERNAL">Internal</option>
+              <option value="EXTERNAL">External</option>
+              <option value="INTERVIEW">Interview</option>
+            </select>
+          </div>
+          <div class="field queue_manage d-flex mb-3">
+            <label class="form-label me-2">Status</label>
+            <select [(ngModel)]="queue.status" class="form-select" aria-label="Default select example">
+              <option value="PENDING">Not Started</option>
+              <option value="ONGOING">Live</option>
+              <option value="COMPLETED">Completed</option>
+            </select>
+          </div>
+
+          <div class="field queue_manage d-flex mb-3">
+            <label for="managername" class="form-label me-2">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="managername"
+              placeholder="eg: company name"
+              [(ngModel)]="queue.startdate"
+            />
+          </div>
+
+          <div class="field queue_manage d-flex mb-3">
+            <label for="managername" class="form-label me-2">Time</label>
+            <input
+              type="time"
+              class="form-control"
+              id="managername"
+              placeholder="eg: company name"
+              [(ngModel)]="queue.starttime"
+            />
+          </div>
+          <div class="actions">
+           <button (click)="saveQueueData()" [disabled]="queue.topic === queueData.topic && queue.type === queueData.type && queue.status === queueData.status && queue.startdate === queueData.startdate && queue.starttime === queueData.starttime" class="btn btn-primary me-2">Save</button>
+           <button (click)="resetQueueData()" [disabled]="queue.topic === queueData.topic && queue.type === queueData.type && queue.status === queueData.status && queue.startdate === queueData.startdate && queue.starttime === queueData.starttime" class="btn btn-danger">Reset</button>
+          </div>
+        </p-card>
+      </div>
+      <div class="col-8">
+        <p-card [header]="'Candidates'">
+          <div class="position-relative">
+            <div
+              class="position-absolute"
+              style="z-index: 9; right: 0px; top: -60px"
+            >
+              {{10}}/{{candidates.length}}
+            </div>
+            <div
+              class="card mb-3 candidate-card shadow-sm"
+              [ngClass]="{ 'active-card': candidate.status }"
+              *ngFor="let candidate of candidates; let i = index"
+            >
+              <div class="card-body p-1 d-flex">
+                <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
+                <div class="info flex-fill d-flex">
+                  <input
+                    [disabled]="!candidate.edit"
+                    class="form-control form-control-sm me-1"
+                    type="text"
+                    [(ngModel)]="candidate.name"
+                  />
+                  <input
+                    [disabled]="!candidate.edit"
+                    class="form-control form-control-sm me-1"
+                    type="text"
+                    [(ngModel)]="candidate.candidate_id"
+                  />
+                </div>
+                <div class="actions d-flex">
+                  <!-- <div class="mx-1" style="line-height: 35px;">
+                    <i class="pi pi-check"></i>
+                  </div>
+                  <div class="mx-1" style="line-height: 35px;">
+                    <i class="pi pi-times"></i>
+                  </div> -->
+                  <div
+                    class="mx-1"
+                    *ngIf="candidate.edit"
+                    style="line-height: 35px"
+                  >
+                    <i class="pi pi-check" (click)="candidate.edit = false"></i>
+                  </div>
+                  <div
+                    class="mx-1"
+                    *ngIf="!candidate.edit"
+                    style="line-height: 35px"
+                  >
+                    <i class="pi pi-pencil" (click)="candidate.edit = true"></i>
+                  </div>
+                  <div class="mx-2" style="line-height: 35px">
+                    <i class="pi pi-trash"></i>
+                  </div>
+                  <input
+                    class="form-check-input mx-1"
+                    style="width: 26px; height: 26px"
+                    type="checkbox"
+                    [(ngModel)]="candidate.status"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </p-card>
+</div>

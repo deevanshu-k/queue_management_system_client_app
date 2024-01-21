@@ -9,6 +9,14 @@ import { Observable } from 'rxjs';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  getAuthToken(): string {
+    return String(localStorage.getItem('queue-token'));
+  }
+
+  removeAuth() {
+    localStorage.removeItem("queue-token");
+  }
+
   authQueueManager(
     id: string,
     password: string
