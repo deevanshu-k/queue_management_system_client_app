@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Queue {
   id: string;
@@ -86,6 +87,6 @@ export class ViewerSocketService {
 @Injectable()
 export class SocketOne extends Socket {
   constructor() {
-    super({ url: 'http://192.168.1.3:3000', options: {} });
+    super({ url: environment.server, options: {} });
   }
 }
