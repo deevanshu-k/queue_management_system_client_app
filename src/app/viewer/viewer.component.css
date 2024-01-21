@@ -1,0 +1,22 @@
+p-toolbar {
+    position: sticky;
+    top: 0px;
+}
+
+.content .body {
+    max-width: 640px;
+    margin: auto;
+}
+
+.done {
+    background-color: greenyellow !important;
+}
+
+::ng-deep .p-progress-spinner {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.progressive-container {
+    height: 100vh;
+}

@@ -1,0 +1,84 @@
+<p-toast></p-toast>
+<div class="main">
+  <!-- <p-toolbar>
+    Live
+  </p-toolbar> -->
+  <div class="content">
+    <div
+      class="progressive-container d-flex justify-content-center align-items-center"
+      *ngIf="!queueData && !errorCode"
+    >
+      <p-progressSpinner strokeWidth="4"></p-progressSpinner>
+    </div>
+    <div class="body py-4 px-2" *ngIf="queueData && !errorCode">
+      <p-card
+        [header]="queueData.topic + ' ' + (queueData.type=='INTERVIEW'?'Interview':queueData.type=='EXTERNAL'?'External':'Internal')"
+        [subheader]="queueData.managername"
+      >
+        <ng-template pTemplate="header">
+          
+          <div
+            class="badge w-100 p-2"
+            [ngClass]="{
+              'text-bg-primary': queueData.status == 'ONGOING',
+              'text-bg-success': queueData.status == 'COMPLETED',
+              'text-bg-secondary': queueData.status == 'PENDING'
+            }"
+            style="
+              border-bottom-right-radius: 0px;
+              border-bottom-left-radius: 0px;
+            "
+          >
+            <span class="fs-7" style="letter-spacing: 1px">
+              {{
+                queueData.status == "ONGOING"
+                  ? "Live"
+                  : queueData.status == "PENDING"
+                  ? "Not started"
+                  : "Completed"
+              }}
+            </span>
+            <div
+              *ngIf="queueData.status == 'ONGOING'"
+              class="spinner-grow"
+              role="status"
+              style="width: 10px; height: 10px"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <img
+            alt="Card"
+            src="https://online.wharton.upenn.edu/wp-content/uploads/Job-seeker-during-an-interview-facing-three-interviewers.jpg"
+          />
+        </ng-template>
+        <div class="card-header row">
+          <div class="col px-3 mb-3">Date: {{ queueData.startdate }}</div>
+          <div class="col px-3 mb-3">Time: {{ queueData.starttime }}</div>
+        </div>
+        <div class="card-body">
+          <div
+            class="card p-2 mb-2"
+            [class.done]="candidate.status"
+            *ngFor="let candidate of queueData.candidates; let i = index"
+          >
+            <div class="row">
+              <div class="col-2">#{{ i + 1 }}</div>
+              <div class="col-5">{{ candidate.candidate_id }}</div>
+              <div class="col-5">{{ candidate.name }}</div>
+            </div>
+          </div>
+
+          <!-- <div class="card p-2 mb-2">
+            <div class="row">
+              <div class="col-2">#2</div>
+              <div class="col-5">0834CS211023</div>
+              <div class="col-5">Harsh Nagle</div>
+            </div>
+          </div> -->
+        </div>
+      </p-card>
+    </div>
+    <div class="card" *ngIf="errorCode == 1023">Queue not exist !</div>
+  </div>
+</div>
