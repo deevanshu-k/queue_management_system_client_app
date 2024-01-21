@@ -47,8 +47,15 @@ export class QueueComponent {
     starttime: string;
   };
 
+  // Add Candidates
+  addCandidateData: {
+    candidate_id: string;
+    name: string;
+  }[] = [];
+
   constructor(private managerService: ManagerService) {
     this.fetchQueueData();
+    this.addCandidateInput()
   }
 
   fetchQueueData() {
@@ -168,5 +175,12 @@ export class QueueComponent {
 
   calculateNoOfDoneCandidates(){
     this.noOfDoneCandidates = this.candidates.filter(d => d.status==true).length;
+  }
+
+  addCandidateInput(){
+    this.addCandidateData.push({
+      candidate_id: "",
+      name: ""
+    });
   }
 }

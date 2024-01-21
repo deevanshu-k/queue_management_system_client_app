@@ -29,6 +29,66 @@
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
+      <div
+        class="mb-3 col-12 position-relative"
+        *ngIf="addCandidateData.length"
+      >
+        <div
+          class="position-absolute"
+          style="z-index: 9; right: 24px; top: 20px"
+        >
+          <button
+            style="height: 35px; width: 35px"
+            (click)="addCandidateInput()"
+            class="btn p-1 btn-primary me-2"
+          >
+            <i class="pi pi-plus"></i>
+          </button>
+        </div>
+        <!-- <div class="card-title">Add candidates</div> -->
+        <p-card subheader="Add candidates">
+          <div
+            class="card mb-3 candidate-card shadow-sm"
+            *ngFor="let candidate of addCandidateData; let i = index"
+          >
+            <div class="card-body p-1 d-flex">
+              <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
+              <div class="info flex-fill d-flex">
+                <input
+                  class="form-control form-control-sm me-1"
+                  type="text"
+                  [(ngModel)]="candidate.name"
+                />
+                <input
+                  class="form-control form-control-sm me-1"
+                  type="text"
+                  [(ngModel)]="candidate.candidate_id"
+                />
+              </div>
+              <div class="actions d-flex">
+                <!-- <div class="mx-1" style="line-height: 35px;">
+              <i class="pi pi-check"></i>
+            </div>
+            <div class="mx-1" style="line-height: 35px;">
+              <i class="pi pi-times"></i>
+            </div> -->
+                <div class="mx-1" style="line-height: 35px">
+                  <i class="pi pi-check"></i>
+                </div>
+
+                <div class="mx-2" style="line-height: 35px">
+                  <i class="pi pi-times"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="actions d-flex flex-row-reverse">
+            <button class="btn btn-danger" (click)="addCandidateData = []">Cancel</button>
+            <button class="btn btn-primary me-2">Save</button>
+          </div>
+        </p-card>
+        
+      </div>
       <div class="col-4">
         <p-card *ngIf="queue && queueData">
           <div class="field queue_manage d-flex mb-3">
@@ -136,6 +196,27 @@
             >
               {{ noOfDoneCandidates }}/{{ candidates.length }}
             </div>
+
+            <div class="d-flex flex-row-reverse my-2">
+              <button
+                *ngIf="!addCandidateData.length"
+                (click)="addCandidateInput()"
+                style="height: 30px; font-size: 12px"
+                class="btn p-1 px-2 btn-primary me-2"
+              >
+                <i class="pi pi-plus" style="font-size: 10px"></i>
+                Add Candidates
+              </button>
+              <input
+                class="form-control me-auto"
+                placeholder="search..."
+                style="max-width: 200px; height: 30px"
+                type="search"
+                name=""
+                id=""
+              />
+            </div>
+
             <div
               class="card mb-3 candidate-card shadow-sm"
               [ngClass]="{ 'active-card': candidate.status }"
@@ -169,7 +250,10 @@
                     *ngIf="candidate.edit"
                     style="line-height: 35px"
                   >
-                    <i class="pi pi-check" (click)="candidate.edit = false;saveCandidateData(i)"></i>
+                    <i
+                      class="pi pi-check"
+                      (click)="candidate.edit = false; saveCandidateData(i)"
+                    ></i>
                   </div>
                   <div
                     class="mx-1"
@@ -179,13 +263,25 @@
                     <i class="pi pi-pencil" (click)="candidate.edit = true"></i>
                   </div>
                   <div class="mx-2" style="line-height: 35px">
-                    <i class="pi pi-trash" (click)="confirmDeleteCandidate(candidate.id,candidate.name)"></i>
+                    <i
+                      class="pi pi-trash"
+                      (click)="
+                        confirmDeleteCandidate(candidate.id, candidate.name)
+                      "
+                    ></i>
                   </div>
-                  <div class="mx-2" *ngIf="candidate.edit" style="line-height: 35px">
-                    <i class="pi pi-times" (click)="candidate.edit = false;resetCandidateData(i)"></i>
+                  <div
+                    class="mx-2"
+                    *ngIf="candidate.edit"
+                    style="line-height: 35px"
+                  >
+                    <i
+                      class="pi pi-times"
+                      (click)="candidate.edit = false; resetCandidateData(i)"
+                    ></i>
                   </div>
                   <input
-                  *ngIf="!candidate.edit"
+                    *ngIf="!candidate.edit"
                     class="form-check-input mx-1"
                     style="width: 26px; height: 26px"
                     type="checkbox"
