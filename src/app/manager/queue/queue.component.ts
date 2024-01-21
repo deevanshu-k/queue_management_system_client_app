@@ -35,6 +35,7 @@ export interface Candidate {
   styleUrl: './queue.component.css',
 })
 export class QueueComponent {
+  noOfDoneCandidates: number = 0;
   queueData?: Queue;
   candidates: Candidate[] = [];
   queue?: {
@@ -62,6 +63,7 @@ export class QueueComponent {
           edit: false,
         };
       });
+      this.noOfDoneCandidates = this.candidates.filter(d => d.status==true).length;
       this.queue = {
         topic: this.queueData.topic,
         type: this.queueData.type,
@@ -86,6 +88,12 @@ export class QueueComponent {
     }
   }
 
+  resetCandidateData(index: number){
+    if(!this.queueData?.candidates[index]) return;
+    this.candidates[index].candidate_id = this.queueData?.candidates[index].candidate_id;
+    this.candidates[index].name = this.queueData?.candidates[index].name;
+  }
+
   saveQueueData() {
     if (
       this.queue &&
@@ -100,6 +108,34 @@ export class QueueComponent {
       this.managerService.updateQueueData(this.queue).subscribe({
         next: (data) => {
           this.fetchQueueData();
+        },
+        error: (error) => {
+          alert(error.error.message)
+        }
+      });
+    }
+  }
+
+  saveCandidateData(index: number){
+    if(!this.queueData) return;
+    if(this.candidates[index].candidate_id != this.queueData.candidates[index].candidate_id || this.candidates[index].name != this.queueData.candidates[index].name || this.candidates[index].status != this.queueData.candidates[index].status){
+      // Save
+      let updateData: {
+        candidate_id?: string;
+      name?: string;
+      status?: boolean;
+      } = {};
+      if(this.candidates[index].candidate_id != this.queueData.candidates[index].candidate_id) updateData.candidate_id = this.candidates[index].candidate_id;
+      if(this.candidates[index].name != this.queueData.candidates[index].name) updateData.name = this.candidates[index].name;
+      if(this.candidates[index].status != this.queueData.candidates[index].status) updateData.status = this.candidates[index].status;
+
+      this.managerService.updateCandidateData(this.candidates[index].id,updateData).subscribe({
+        next: (data) => {
+          if(this.queueData?.candidates[index]){
+            this.queueData.candidates[index].candidate_id = this.candidates[index].candidate_id;
+            this.queueData.candidates[index].name = this.candidates[index].name;
+            this.queueData.candidates[index].status = this.candidates[index].status;
+          }
         },
         error: (error) => {
           alert(error.error.message)

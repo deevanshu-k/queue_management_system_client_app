@@ -27,4 +27,18 @@ export class ManagerService {
       data
     );
   }
+
+  updateCandidateData(
+    id: string,
+    data: {
+      candidate_id?: string;
+      name?: string;
+      status?: boolean;
+    }
+  ): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(
+      environment.server + '/api/candidate/' + id,
+      data
+    );
+  }
 }

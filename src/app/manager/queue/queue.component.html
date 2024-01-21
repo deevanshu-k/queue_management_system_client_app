@@ -134,7 +134,7 @@
               class="position-absolute"
               style="z-index: 9; right: 0px; top: -60px"
             >
-              {{ 10 }}/{{ candidates.length }}
+              {{ noOfDoneCandidates }}/{{ candidates.length }}
             </div>
             <div
               class="card mb-3 candidate-card shadow-sm"
@@ -169,7 +169,7 @@
                     *ngIf="candidate.edit"
                     style="line-height: 35px"
                   >
-                    <i class="pi pi-check" (click)="candidate.edit = false"></i>
+                    <i class="pi pi-check" (click)="candidate.edit = false;saveCandidateData(i)"></i>
                   </div>
                   <div
                     class="mx-1"
@@ -181,11 +181,16 @@
                   <div class="mx-2" style="line-height: 35px">
                     <i class="pi pi-trash"></i>
                   </div>
+                  <div class="mx-2" *ngIf="candidate.edit" style="line-height: 35px">
+                    <i class="pi pi-times" (click)="candidate.edit = false;resetCandidateData(i)"></i>
+                  </div>
                   <input
+                  *ngIf="!candidate.edit"
                     class="form-check-input mx-1"
                     style="width: 26px; height: 26px"
                     type="checkbox"
                     [(ngModel)]="candidate.status"
+                    (change)="saveCandidateData(i)"
                   />
                 </div>
               </div>
