@@ -136,11 +136,16 @@ export class QueueComponent {
             this.queueData.candidates[index].name = this.candidates[index].name;
             this.queueData.candidates[index].status = this.candidates[index].status;
           }
+          this.calculateNoOfDoneCandidates();
         },
         error: (error) => {
           alert(error.error.message)
         }
       });
     }
+  }
+
+  calculateNoOfDoneCandidates(){
+    this.noOfDoneCandidates = this.candidates.filter(d => d.status==true).length;
   }
 }
