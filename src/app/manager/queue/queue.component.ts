@@ -29,7 +29,7 @@ export interface Candidate {
     ToggleButtonModule,
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './queue.component.html',
   styleUrl: './queue.component.css',
@@ -55,7 +55,6 @@ export class QueueComponent {
 
   constructor(private managerService: ManagerService) {
     this.fetchQueueData();
-    this.addCandidateInput()
   }
 
   fetchQueueData() {
@@ -70,7 +69,9 @@ export class QueueComponent {
           edit: false,
         };
       });
-      this.noOfDoneCandidates = this.candidates.filter(d => d.status==true).length;
+      this.noOfDoneCandidates = this.candidates.filter(
+        (d) => d.status == true
+      ).length;
       this.queue = {
         topic: this.queueData.topic,
         type: this.queueData.type,
@@ -95,9 +96,10 @@ export class QueueComponent {
     }
   }
 
-  resetCandidateData(index: number){
-    if(!this.queueData?.candidates[index]) return;
-    this.candidates[index].candidate_id = this.queueData?.candidates[index].candidate_id;
+  resetCandidateData(index: number) {
+    if (!this.queueData?.candidates[index]) return;
+    this.candidates[index].candidate_id =
+      this.queueData?.candidates[index].candidate_id;
     this.candidates[index].name = this.queueData?.candidates[index].name;
   }
 
@@ -117,70 +119,118 @@ export class QueueComponent {
           this.fetchQueueData();
         },
         error: (error) => {
-          alert(error.error.message)
-        }
+          alert(error.error.message);
+        },
       });
     }
   }
 
-  saveCandidateData(index: number){
-    if(!this.queueData) return;
-    if(this.candidates[index].candidate_id != this.queueData.candidates[index].candidate_id || this.candidates[index].name != this.queueData.candidates[index].name || this.candidates[index].status != this.queueData.candidates[index].status){
+  saveCandidateData(index: number) {
+    if (!this.queueData) return;
+    if (
+      this.candidates[index].candidate_id !=
+        this.queueData.candidates[index].candidate_id ||
+      this.candidates[index].name != this.queueData.candidates[index].name ||
+      this.candidates[index].status != this.queueData.candidates[index].status
+    ) {
       // Save
       let updateData: {
         candidate_id?: string;
-      name?: string;
-      status?: boolean;
+        name?: string;
+        status?: boolean;
       } = {};
-      if(this.candidates[index].candidate_id != this.queueData.candidates[index].candidate_id) updateData.candidate_id = this.candidates[index].candidate_id;
-      if(this.candidates[index].name != this.queueData.candidates[index].name) updateData.name = this.candidates[index].name;
-      if(this.candidates[index].status != this.queueData.candidates[index].status) updateData.status = this.candidates[index].status;
+      if (
+        this.candidates[index].candidate_id !=
+        this.queueData.candidates[index].candidate_id
+      )
+        updateData.candidate_id = this.candidates[index].candidate_id;
+      if (this.candidates[index].name != this.queueData.candidates[index].name)
+        updateData.name = this.candidates[index].name;
+      if (
+        this.candidates[index].status != this.queueData.candidates[index].status
+      )
+        updateData.status = this.candidates[index].status;
 
-      this.managerService.updateCandidateData(this.candidates[index].id,updateData).subscribe({
-        next: (data) => {
-          if(this.queueData?.candidates[index]){
-            this.queueData.candidates[index].candidate_id = this.candidates[index].candidate_id;
-            this.queueData.candidates[index].name = this.candidates[index].name;
-            this.queueData.candidates[index].status = this.candidates[index].status;
-          }
-          this.calculateNoOfDoneCandidates();
-        },
-        error: (error) => {
-          alert(error.error.message)
-        }
-      });
+      this.managerService
+        .updateCandidateData(this.candidates[index].id, updateData)
+        .subscribe({
+          next: (data) => {
+            if (this.queueData?.candidates[index]) {
+              this.queueData.candidates[index].candidate_id =
+                this.candidates[index].candidate_id;
+              this.queueData.candidates[index].name =
+                this.candidates[index].name;
+              this.queueData.candidates[index].status =
+                this.candidates[index].status;
+            }
+            this.calculateNoOfDoneCandidates();
+          },
+          error: (error) => {
+            alert(error.error.message);
+          },
+        });
     }
   }
 
-  deleteCandidate(candidateId: string){
+  deleteCandidate(candidateId: string) {
     this.managerService.deleteCandidate(candidateId).subscribe({
       next: (data) => {
-        if(this.queueData?.candidates){
-          this.queueData.candidates = this.queueData.candidates.filter(c => c.id != candidateId);
+        if (this.queueData?.candidates) {
+          this.queueData.candidates = this.queueData.candidates.filter(
+            (c) => c.id != candidateId
+          );
         }
-        this.candidates = this.candidates.filter(c => c.id != candidateId);
+        this.candidates = this.candidates.filter((c) => c.id != candidateId);
         this.calculateNoOfDoneCandidates();
       },
       error: (error) => {
-        alert(error.error.message)
-      }
+        alert(error.error.message);
+      },
     });
   }
 
-  confirmDeleteCandidate(candidateId: string, candidateName: string){
-    if(confirm("Are you sure you want to delete "+ candidateName + ".")){
-      this.deleteCandidate(candidateId)
+  confirmDeleteCandidate(candidateId: string, candidateName: string) {
+    if (confirm('Are you sure you want to delete ' + candidateName + '.')) {
+      this.deleteCandidate(candidateId);
     }
   }
 
-  calculateNoOfDoneCandidates(){
-    this.noOfDoneCandidates = this.candidates.filter(d => d.status==true).length;
+  calculateNoOfDoneCandidates() {
+    this.noOfDoneCandidates = this.candidates.filter(
+      (d) => d.status == true
+    ).length;
   }
 
-  addCandidateInput(){
+  addCandidateInput() {
     this.addCandidateData.push({
-      candidate_id: "",
-      name: ""
+      candidate_id: '',
+      name: '',
+    });
+  }
+
+  removeCandidateFromCandidateInput(index: number) {
+    this.addCandidateData.splice(index, 1);
+  }
+
+  addCandidatesToQueue() {
+    // TODO: For Adding One Candidates
+
+    // For Adding Full Candidates
+    for (let i = 0; i < this.addCandidateData.length; i++) {
+      const element = this.addCandidateData[i];
+      if (!element.candidate_id || !element.name) {
+        alert('Empty value not allowed!');
+        return;
+      }
+    }
+    this.managerService.addCandidates(this.addCandidateData).subscribe({
+      next: (data) => {
+        this.addCandidateData = [];
+        this.fetchQueueData();
+      },
+      error: (error) => {
+        alert(error.error.message);
+      },
     });
   }
 }

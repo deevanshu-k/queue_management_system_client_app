@@ -66,25 +66,18 @@
                 />
               </div>
               <div class="actions d-flex">
-                <!-- <div class="mx-1" style="line-height: 35px;">
-              <i class="pi pi-check"></i>
-            </div>
-            <div class="mx-1" style="line-height: 35px;">
-              <i class="pi pi-times"></i>
-            </div> -->
-                <div class="mx-1" style="line-height: 35px">
+                <!-- <div class="mx-1" style="line-height: 35px">
                   <i class="pi pi-check"></i>
-                </div>
-
+                </div> -->
                 <div class="mx-2" style="line-height: 35px">
-                  <i class="pi pi-times"></i>
+                  <i class="pi pi-times" (click)="removeCandidateFromCandidateInput(i)"></i>
                 </div>
               </div>
             </div>
           </div>
           <div class="actions d-flex flex-row-reverse">
             <button class="btn btn-danger" (click)="addCandidateData = []">Cancel</button>
-            <button class="btn btn-primary me-2">Save</button>
+            <button class="btn btn-primary me-2" (click)="addCandidatesToQueue()">Save</button>
           </div>
         </p-card>
         

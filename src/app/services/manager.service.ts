@@ -47,4 +47,18 @@ export class ManagerService {
       environment.server + '/api/candidate/' + candidateId
     );
   }
+
+  addCandidates(
+    data: {
+      name: string;
+      candidate_id: string;
+    }[]
+  ): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      environment.server + '/api/candidate',
+      {
+        candidates: data,
+      }
+    );
+  }
 }
