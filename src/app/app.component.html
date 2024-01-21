@@ -1,1 +1,8 @@
 <router-outlet></router-outlet>
+<div class="spinner-progress-bar" *ngIf="httpLoaderService.isLoading | async">
+  <div
+    class="progressive-container d-flex justify-content-center align-items-center"
+  >
+    <p-progressSpinner strokeWidth="4"></p-progressSpinner>
+  </div>
+</div>

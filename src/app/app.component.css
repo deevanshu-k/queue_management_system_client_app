@@ -1,0 +1,18 @@
+::ng-deep .p-progress-spinner {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.progressive-container {
+    height: 100vh;
+}
+
+.spinner-progress-bar {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    background-color: rgba(245, 245, 245, 0.726);
+}

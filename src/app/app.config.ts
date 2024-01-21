@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { SocketOne } from './services/viewer-socket.service';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token-interceptors.service';
+import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     SocketOne,
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 };

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManagerService } from '../../services/manager.service';
 import { Queue } from '../../services/viewer-socket.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 export interface Candidate {
   id: string;
@@ -28,7 +29,7 @@ export interface Candidate {
     ToggleButtonModule,
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ],
   templateUrl: './queue.component.html',
   styleUrl: './queue.component.css',
