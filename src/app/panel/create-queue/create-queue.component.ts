@@ -84,15 +84,16 @@ export class CreateQueueComponent {
     ) {
       data = { ...this.queue };
 
-      // BUG: on below error.. code is going fordword
-      this.candidates.forEach((d) => {
-        if (!d.candidate_id || !d.name)
+      for (let i = 0; i < this.candidates.length; i++) {
+        const element = this.candidates[i];
+        if (!element.candidate_id || !element.name)
           return alert('All candidate inputs are required!');
         candidatesData.push({
-          name: d.name,
-          candidate_id: d.candidate_id,
+          name: element.name,
+          candidate_id: element.candidate_id,
         });
-      });
+      }
+      
       if (candidatesData.length == 0)
         return alert('Minimum 1 candidates are required!');
       data.candidates = candidatesData;
