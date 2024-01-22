@@ -1,0 +1,14 @@
+.barsHandle {
+  cursor: move;
+}
+
+.form-control-sm:disabled {
+  background-color: transparent;
+  /* border: 0px; */
+  border-color: transparent;
+  opacity: 1;
+}
+
+.candidate-card .actions :is(i ,input){
+    cursor: pointer;
+}

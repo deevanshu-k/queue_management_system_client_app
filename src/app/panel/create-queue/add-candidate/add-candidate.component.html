@@ -1,0 +1,90 @@
+<p-card header="Candidates">
+  <div class="position-relative">
+    <div class="position-absolute" style="z-index: 9; right: 0px; top: -60px">
+      Total: 
+        {{ candidates.length }}
+    </div>
+
+    <div class="d-flex flex-row-reverse my-2 mb-3">
+      <button
+        *ngIf="true"
+        style="height: 30px; font-size: 12px"
+        class="btn p-1 px-2 btn-primary me-2"
+        (click)="addCandidateInput()"
+      >
+        <i class="pi pi-plus" style="font-size: 10px"></i>
+        Add Candidates
+      </button>
+      <input
+        class="form-control me-auto"
+        placeholder="search..."
+        style="max-width: 200px; height: 30px"
+        type="search"
+        name=""
+        id=""
+      />
+    </div>
+
+    <div
+      pDraggable="hello"
+      pDroppable="hello"
+      (onDragStart)="onDragStart(i)"
+      (onDrop)="onDrop(i)"
+      dragHandle=".barsHandle"
+      class="card mb-3 candidate-card shadow-sm"
+      *ngFor="let candidate of candidates; let i = index"
+    >
+      <div class="card-body p-1 d-flex">
+        <div>
+          <svg
+            class="barsHandle"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20px"
+            height="30px"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 8zm0 6a2 2 0 10.001 4.001A2 2 0 007 14zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 6zm0 2a2 2 0 10.001 4.001A2 2 0 0013 8zm0 6a2 2 0 10.001 4.001A2 2 0 0013 14z"
+              fill="#5C5F62"
+            />
+          </svg>
+        </div>
+        <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
+        <div class="info flex-fill d-flex">
+          <input
+            [disabled]="!candidate.edit"
+            class="form-control form-control-sm me-1"
+            type="text"
+            [(ngModel)]="candidate.candidate_id"
+          />
+          <input
+            [disabled]="!candidate.edit"
+            class="form-control form-control-sm me-1"
+            type="text"
+            [(ngModel)]="candidate.name"
+          />
+        </div>
+        <div class="actions d-flex">
+          <!-- <div class="mx-1" style="line-height: 35px;">
+                <i class="pi pi-check"></i>
+              </div>
+              <div class="mx-1" style="line-height: 35px;">
+                <i class="pi pi-times"></i>
+              </div> -->
+          <div class="mx-1" *ngIf="candidate.edit" style="line-height: 35px">
+            <i class="pi pi-check" (click)="candidate.edit = false"></i>
+          </div>
+          <div class="mx-1" *ngIf="!candidate.edit" style="line-height: 35px">
+            <i class="pi pi-pencil" (click)="candidate.edit = true"></i>
+          </div>
+          <div class="mx-2" style="line-height: 35px">
+            <i class="pi pi-trash" (click)="removeCandidate(i)"></i>
+          </div>
+          <!-- <div class="mx-2" *ngIf="candidate.edit" style="line-height: 35px">
+            <i class="pi pi-times" (click)="candidate.edit = false"></i>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>

@@ -1,1 +1,42 @@
-<p>create-queue works!</p>
+<div class="main container py-3" *ngIf="!queueCreateResponse">
+  <p-card header="Queue Management System" subheader="Create Queue">
+    <ng-template pTemplate="content">
+      <div class="row create_queue_main position-relative">
+        <div
+          class="position-absolute badge p-2"
+          style="right: 10px; top: -80px; max-width: 200px"
+        >
+          <button class="btn btn-primary me-2" (click)="createQueue()">Create</button>
+          <button class="btn btn-danger" [routerLink]="['/home']">
+            Cancel
+          </button>
+        </div>
+        <div class="col-4">
+          <app-add-queue [queue]="queue"></app-add-queue>
+        </div>
+        <div class="col-8">
+          <app-add-candidate [candidates]="candidates"></app-add-candidate>
+        </div>
+      </div>
+    </ng-template>
+  </p-card>
+</div>
+
+<div
+  class="main d-flex justify-content-center align-items-center"
+  style="height: 100vh;"
+  *ngIf="queueCreateResponse"
+>
+  <p-card header="Queue Created" >
+    <ng-template pTemplate="content">
+      <div class="field">
+        <span>Manage URl: </span>
+        <a class="link-underline-danger link-danger" style="cursor: pointer;">{{queueCreateResponse.manager_url}}</a>
+      </div>
+      <div class="field">
+        <span>Viewer URl: </span>
+        <a class="link-underline-primary link-primary" style="cursor: pointer;">{{queueCreateResponse.viewer_url}}</a>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

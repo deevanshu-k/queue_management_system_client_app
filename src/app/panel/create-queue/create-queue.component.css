@@ -1,0 +1,7 @@
+/* .create_queue_main {
+    flex-direction: column !important;
+}
+
+.create_queue_main :is(.col-4,.col-8) {
+    width: 100% !important;
+} */

@@ -61,4 +61,26 @@ export class ManagerService {
       }
     );
   }
+
+  createQueue(
+    data: {
+      topic: string;
+      type: 'INTERNAL' | 'EXTERNAL' | 'INTERVIEW';
+      managername: string;
+      startdate: string;
+      starttime: string;
+      candidates: {
+        candidate_id: string;
+        name: string;
+      }[];
+    }
+  ): Observable<{
+    manager_url: string;
+    viewer_url: string;
+  }> {
+    return this.http.post<{
+      manager_url: string;
+      viewer_url: string;
+    }>(environment.server + '/api/queue', data);
+  }
 }
