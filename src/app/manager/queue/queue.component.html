@@ -155,6 +155,7 @@
               (click)="saveQueueData()"
               [disabled]="
                 queue.topic === queueData.topic &&
+                queue.managername === queueData.managername &&
                 queue.type === queueData.type &&
                 queue.status === queueData.status &&
                 queue.startdate === queueData.startdate &&
