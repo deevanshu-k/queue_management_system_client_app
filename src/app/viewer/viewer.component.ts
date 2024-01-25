@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute } from '@angular/router';
-import { Queue, ViewerSocketService } from '../services/viewer-socket.service';
+import {
+  Candidate,
+  Queue,
+  ViewerSocketService,
+} from '../services/viewer-socket.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
@@ -27,11 +31,33 @@ export class ViewerComponent implements OnInit {
   queueData?: Queue;
   errorCode?: number;
 
+  nextCandidates: {
+    index: number,
+    name: string,
+    candidate_id: string
+  }[] = [];
   constructor(
     private route: ActivatedRoute,
     private viewSocketService: ViewerSocketService,
     private messageService: MessageService
   ) {}
+
+  updateNextCandidates() {
+    console.log(this.nextCandidates);
+
+    this.nextCandidates = [];
+    if (this.queueData?.candidates && this.queueData.status === 'ONGOING') {
+      for (let i = 0; i < this.queueData?.candidates.length; i++) {
+        const element = this.queueData?.candidates[i];
+        if (this.nextCandidates.length >= 3) break;
+        if (element.status == false) this.nextCandidates.push({
+          index: i,
+          name: element.name,
+          candidate_id: element.candidate_id
+        });
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((d: any) => {
@@ -57,8 +83,10 @@ export class ViewerComponent implements OnInit {
 
       this.queueData = {
         ...data,
-        candidates:  data.candidates.sort((a,b) => a.placevalue - b.placevalue)
+        candidates: data.candidates.sort((a, b) => a.placevalue - b.placevalue),
       };
+
+      this.updateNextCandidates();
     });
 
     this.viewSocketService.getQueueUpdate().subscribe((data) => {
@@ -117,6 +145,7 @@ export class ViewerComponent implements OnInit {
 
         this.viewSocketService.needQueueFullData(this.queueId);
       }
+      this.updateNextCandidates();
     });
   }
 }

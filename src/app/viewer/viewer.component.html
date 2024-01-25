@@ -11,46 +11,71 @@
       <p-progressSpinner strokeWidth="4"></p-progressSpinner>
     </div>
     <div class="body py-4 px-2" *ngIf="queueData && !errorCode">
+      <div class="sticky-top sticky-header bg-light">
+        <div
+          class="badge w-100 p-2"
+          [ngClass]="{
+            'text-bg-primary': queueData.status == 'ONGOING',
+            'text-bg-success': queueData.status == 'COMPLETED',
+            'text-bg-secondary': queueData.status == 'PENDING'
+          }"
+          style="
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+          "
+        >
+          <span class="fs-7" style="letter-spacing: 1px">
+            {{
+              queueData.status == "ONGOING"
+                ? "Live"
+                : queueData.status == "PENDING"
+                ? "Not started"
+                : "Completed"
+            }}
+          </span>
+          <div
+            *ngIf="queueData.status == 'ONGOING'"
+            class="spinner-grow"
+            role="status"
+            style="width: 10px; height: 10px"
+          >
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div class="p-2" *ngIf="queueData && queueData.status === 'ONGOING' && nextCandidates.length">
+          <h6>Next Three</h6>
+          <div class="p-1">
+            <div
+            class="card p-2 mb-2"
+            *ngFor="let candidate of nextCandidates"
+          >
+            <div class="row">
+              <div class="col-2">#{{ candidate.index + 1 }}</div>
+              <div class="col-5">{{ candidate.candidate_id }}</div>
+              <div class="col-5">{{ candidate.name }}</div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+
       <p-card
-        [header]="queueData.topic + ' ' + (queueData.type=='INTERVIEW'?'Interview':queueData.type=='EXTERNAL'?'External':'Internal')"
+        [header]="
+          queueData.topic +
+          ' ' +
+          (queueData.type == 'INTERVIEW'
+            ? 'Interview'
+            : queueData.type == 'EXTERNAL'
+            ? 'External'
+            : 'Internal')
+        "
         [subheader]="queueData.managername"
       >
         <ng-template pTemplate="header">
-          
-          <div
-            class="badge w-100 p-2"
-            [ngClass]="{
-              'text-bg-primary': queueData.status == 'ONGOING',
-              'text-bg-success': queueData.status == 'COMPLETED',
-              'text-bg-secondary': queueData.status == 'PENDING'
-            }"
-            style="
-              border-bottom-right-radius: 0px;
-              border-bottom-left-radius: 0px;
-            "
-          >
-            <span class="fs-7" style="letter-spacing: 1px">
-              {{
-                queueData.status == "ONGOING"
-                  ? "Live"
-                  : queueData.status == "PENDING"
-                  ? "Not started"
-                  : "Completed"
-              }}
-            </span>
-            <div
-              *ngIf="queueData.status == 'ONGOING'"
-              class="spinner-grow"
-              role="status"
-              style="width: 10px; height: 10px"
-            >
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <img
+          <!-- <img
             alt="Card"
             src="https://online.wharton.upenn.edu/wp-content/uploads/Job-seeker-during-an-interview-facing-three-interviewers.jpg"
-          />
+          /> -->
         </ng-template>
         <div class="card-header row">
           <div class="col px-3 mb-3">Date: {{ queueData.startdate }}</div>
