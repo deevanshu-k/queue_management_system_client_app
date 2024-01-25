@@ -14,8 +14,8 @@
         }"
         class="position-absolute badge p-2"
         style="max-width: 100px"
-        [style.top]="innerWidth > 450? '-60px':'15px'"
-        [style.right]="innerWidth > 450? '10px':'32px'"
+        [style.top]="innerWidth > 450 ? '-60px' : '15px'"
+        [style.right]="innerWidth > 450 ? '10px' : '32px'"
       >
         <span class="fs-7" style="letter-spacing: 1px">
           {{
@@ -35,7 +35,7 @@
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-      
+
       <div [class.col-4]="innerWidth > 999" [class.mb-3]="innerWidth <= 999">
         <p-card [subheader]="'Queue'" *ngIf="queue && queueData">
           <div class="field queue_manage d-flex mb-3">
@@ -217,7 +217,7 @@
                 class="btn p-1 px-2 btn-primary me-2"
               >
                 <i class="pi pi-plus" style="font-size: 10px"></i>
-                {{ innerWidth > 450? 'Add Candidates':'Add' }} 
+                {{ innerWidth > 450 ? "Add Candidates" : "Add" }}
               </button>
               <input
                 class="form-control me-auto"
@@ -234,9 +234,34 @@
               [ngClass]="{ 'active-card': candidate.status }"
               *ngFor="let candidate of candidates; let i = index"
             >
-              <div class="card-body p-1 d-flex">
-                <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
-                <div class="info flex-fill d-flex" [class.justify-content-center]="innerWidth < 450" [class.flex-column]="innerWidth < 450">
+              <div
+                pDraggable="queueManage"
+                pDroppable="queueManage"
+                (onDragStart)="onDragStart(i)"
+                (onDrop)="onDrop(i)"
+                dragHandle=".barsHandle"
+                class="card-body p-1 d-flex"
+              >
+                <div [style.line-height]="innerWidth < 450 ? '60px' : ''">
+                  <svg
+                    class="barsHandle"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20px"
+                    height="30px"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 8zm0 6a2 2 0 10.001 4.001A2 2 0 007 14zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 6zm0 2a2 2 0 10.001 4.001A2 2 0 0013 8zm0 6a2 2 0 10.001 4.001A2 2 0 0013 14z"
+                      fill="#5C5F62"
+                    />
+                  </svg>
+                </div>
+                <div class="px-3" [style.line-height]="innerWidth < 450 ? '60px' : '35px'">#{{ i + 1 }}</div>
+                <div
+                  class="info flex-fill d-flex"
+                  [class.justify-content-center]="innerWidth < 450"
+                  [class.flex-column]="innerWidth < 450"
+                >
                   <input
                     [disabled]="!candidate.edit"
                     class="form-control form-control-sm me-1"

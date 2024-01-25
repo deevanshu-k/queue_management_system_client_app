@@ -16,3 +16,7 @@
 .candidate-card .actions :is(i ,input){
     cursor: pointer;
 }
+
+.barsHandle {
+    cursor: move;
+  }

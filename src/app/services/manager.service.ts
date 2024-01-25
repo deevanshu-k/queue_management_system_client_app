@@ -42,6 +42,19 @@ export class ManagerService {
     );
   }
 
+  updateMultipleCandidatesData(data: {
+    id: string;
+    candidate_id?: string;
+    name?: string;
+    status?: boolean;
+    placevalue?: number;
+  }[]): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(
+      environment.server + '/api/candidate',
+      data
+    );
+  }
+
   deleteCandidate(candidateId: string): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(
       environment.server + '/api/candidate/' + candidateId
@@ -62,19 +75,17 @@ export class ManagerService {
     );
   }
 
-  createQueue(
-    data: {
-      topic: string;
-      type: 'INTERNAL' | 'EXTERNAL' | 'INTERVIEW';
-      managername: string;
-      startdate: string;
-      starttime: string;
-      candidates: {
-        candidate_id: string;
-        name: string;
-      }[];
-    }
-  ): Observable<{
+  createQueue(data: {
+    topic: string;
+    type: 'INTERNAL' | 'EXTERNAL' | 'INTERVIEW';
+    managername: string;
+    startdate: string;
+    starttime: string;
+    candidates: {
+      candidate_id: string;
+      name: string;
+    }[];
+  }): Observable<{
     manager_url: string;
     viewer_url: string;
   }> {

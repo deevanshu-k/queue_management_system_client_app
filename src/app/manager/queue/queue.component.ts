@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManagerService } from '../../services/manager.service';
 import { Queue } from '../../services/viewer-socket.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DragDropModule } from 'primeng/dragdrop';
 
 export interface Candidate {
   id: string;
@@ -16,6 +17,7 @@ export interface Candidate {
   name: string;
   status: boolean;
   edit: boolean;
+  placevalue: number;
 }
 
 @Component({
@@ -30,6 +32,7 @@ export interface Candidate {
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    DragDropModule,
   ],
   templateUrl: './queue.component.html',
   styleUrl: './queue.component.css',
@@ -54,6 +57,9 @@ export class QueueComponent {
     name: string;
   }[] = [];
 
+  // Move Candidate
+  startIndex: number = -1;
+
   constructor(private managerService: ManagerService) {
     this.fetchQueueData();
   }
@@ -70,7 +76,7 @@ export class QueueComponent {
     this.managerService.getQueueData().subscribe((d) => {
       this.queueData = {
         ...d,
-        candidates: d.candidates.sort((a,b) => a.placevalue - b.placevalue)
+        candidates: d.candidates.sort((a, b) => a.placevalue - b.placevalue),
       };
       this.candidates = this.queueData.candidates.map((d) => {
         return {
@@ -241,5 +247,45 @@ export class QueueComponent {
         alert(error.error.message);
       },
     });
+  }
+
+  // Candidate Position Change
+  onDragStart(index: number) {
+    this.startIndex = index;
+    console.log(index);
+  }
+
+  onDrop(dropIndex: number) {
+    const general = this.candidates[this.startIndex]; // get element
+    this.candidates.splice(this.startIndex, 1); // delete from old position
+    this.candidates.splice(dropIndex, 0, general); // add to new position
+    // this.emitCandidates.emit(this.candidates);
+
+    let updatedCandidates: { id: string; placevalue: number }[] = [];
+    if (!this.queueData?.candidates) return;
+    if (this.queueData.candidates.length != this.candidates.length)
+      return this.fetchQueueData();
+    for (let i = 0; i < this.queueData.candidates.length; i++) {
+      const candidate = this.queueData.candidates[i];
+      if (candidate.placevalue != this.candidates[i].placevalue) {
+        updatedCandidates.push({
+          id: this.candidates[i].id,
+          placevalue: candidate.placevalue,
+        });
+      }
+    }
+
+    if (!updatedCandidates.length) return;
+    this.managerService
+      .updateMultipleCandidatesData(updatedCandidates)
+      .subscribe({
+        next: (data) => {
+          // Updated Successfully!
+          this.fetchQueueData();
+        },
+        error: (error) => {
+          alert(error.error.message);
+        },
+      });
   }
 }
