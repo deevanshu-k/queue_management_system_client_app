@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { AddQueueComponent } from './add-queue/add-queue.component';
@@ -21,6 +21,7 @@ import { ManagerService } from '../../services/manager.service';
   styleUrl: './create-queue.component.css',
 })
 export class CreateQueueComponent {
+  innerWidth: number = window.innerWidth;
   queue: {
     topic: string;
     type: 'INTERNAL' | 'EXTERNAL' | 'INTERVIEW';
@@ -71,6 +72,11 @@ export class CreateQueueComponent {
 
   constructor(private managerService: ManagerService) {}
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
+
   createQueue() {
     let data: any = {};
     let candidatesData: { name: string; candidate_id: string }[] = [];
@@ -93,7 +99,7 @@ export class CreateQueueComponent {
           candidate_id: element.candidate_id,
         });
       }
-      
+
       if (candidatesData.length == 0)
         return alert('Minimum 1 candidates are required!');
       data.candidates = candidatesData;

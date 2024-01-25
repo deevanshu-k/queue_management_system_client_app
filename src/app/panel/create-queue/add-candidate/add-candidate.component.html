@@ -13,7 +13,7 @@
         (click)="addCandidateInput()"
       >
         <i class="pi pi-plus" style="font-size: 10px"></i>
-        Add Candidates
+        {{ innerWidth > 450? 'Add Candidates':'Add' }} 
       </button>
       <input
         class="form-control me-auto"
@@ -35,7 +35,7 @@
       *ngFor="let candidate of candidates; let i = index"
     >
       <div class="card-body p-1 d-flex">
-        <div>
+        <div [style.line-height]="innerWidth < 450?'60px':''">
           <svg
             class="barsHandle"
             xmlns="http://www.w3.org/2000/svg"
@@ -49,8 +49,8 @@
             />
           </svg>
         </div>
-        <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
-        <div class="info flex-fill d-flex">
+        <div class="px-3" [style.line-height]="innerWidth < 450?'60px':'35px'">#{{ i + 1 }}</div>
+        <div class="info flex-fill d-flex" [class.justify-content-center]="innerWidth < 450" [class.flex-column]="innerWidth < 450">
           <input
             [disabled]="!candidate.edit"
             class="form-control form-control-sm me-1"
@@ -66,17 +66,17 @@
             [(ngModel)]="candidate.name"
           />
         </div>
-        <div class="actions d-flex">
+        <div class="actions d-flex" [class.flex-column]="innerWidth < 450">
           <!-- <div class="mx-1" style="line-height: 35px;">
                 <i class="pi pi-check"></i>
               </div>
               <div class="mx-1" style="line-height: 35px;">
                 <i class="pi pi-times"></i>
               </div> -->
-          <div class="mx-1" *ngIf="candidate.edit" style="line-height: 35px">
+          <div class="mx-2" *ngIf="candidate.edit" style="line-height: 35px">
             <i class="pi pi-check" (click)="candidate.edit = false"></i>
           </div>
-          <div class="mx-1" *ngIf="!candidate.edit" style="line-height: 35px">
+          <div class="mx-2" *ngIf="!candidate.edit" style="line-height: 35px">
             <i class="pi pi-pencil" (click)="candidate.edit = true"></i>
           </div>
           <div class="mx-2" style="line-height: 35px">

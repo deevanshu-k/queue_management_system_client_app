@@ -1,7 +1,5 @@
-/* .create_queue_main {
-    flex-direction: column !important;
+.badge {
+  right: 10px;
+  top: -80px;
+  max-width: 200px;
 }
-
-.create_queue_main :is(.col-4,.col-8) {
-    width: 100% !important;
-} */

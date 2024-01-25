@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { DragDropModule } from 'primeng/dragdrop';
@@ -18,10 +18,16 @@ interface Candidate {
   styleUrl: './add-candidate.component.css',
 })
 export class AddCandidateComponent {
+  innerWidth: number = window.innerWidth;
   startIndex: number = -1;
   @Input({ alias: 'candidates', required: true }) candidates!: Candidate[];
   // @Output('candidates') emitCandidates: EventEmitter<Candidate[]> =
   //   new EventEmitter<Candidate[]>();
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
 
   onDragStart(index: number) {
     this.startIndex = index;
