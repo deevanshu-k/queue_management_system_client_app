@@ -55,7 +55,10 @@ export class ViewerComponent implements OnInit {
     this.viewSocketService.getQueueFullData().subscribe((data) => {
       console.log(data);
 
-      this.queueData = data;
+      this.queueData = {
+        ...data,
+        candidates:  data.candidates.sort((a,b) => a.placevalue - b.placevalue)
+      };
     });
 
     this.viewSocketService.getQueueUpdate().subscribe((data) => {

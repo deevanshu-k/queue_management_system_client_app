@@ -68,7 +68,10 @@ export class QueueComponent {
     this.candidates = [];
     this.queue = undefined;
     this.managerService.getQueueData().subscribe((d) => {
-      this.queueData = d;
+      this.queueData = {
+        ...d,
+        candidates: d.candidates.sort((a,b) => a.placevalue - b.placevalue)
+      };
       this.candidates = this.queueData.candidates.map((d) => {
         return {
           ...d,

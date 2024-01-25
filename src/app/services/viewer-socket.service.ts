@@ -19,6 +19,7 @@ export interface Candidate {
   candidate_id: string;
   name: string;
   status: boolean;
+  placevalue: number;
 }
 
 export interface UpdateQueue {
