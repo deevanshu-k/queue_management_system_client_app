@@ -1,4 +1,8 @@
-<div class="main container p-3">
+<div
+  class="main"
+  [class.p-3]="innerWidth > 550"
+  [ngClass]="innerWidth > 999 ? 'container' : ''"
+>
   <p-card [header]="'Queue Management Panel'">
     <div class="row position-relative">
       <div
@@ -9,7 +13,9 @@
           'text-bg-secondary': queueData.status == 'PENDING'
         }"
         class="position-absolute badge p-2"
-        style="right: 10px; top: -60px; max-width: 100px"
+        style="max-width: 100px"
+        [style.top]="innerWidth > 450? '-60px':'15px'"
+        [style.right]="innerWidth > 450? '10px':'32px'"
       >
         <span class="fs-7" style="letter-spacing: 1px">
           {{
@@ -29,61 +35,9 @@
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-      <div
-        class="mb-3 col-12 position-relative"
-        *ngIf="addCandidateData.length"
-      >
-        <div
-          class="position-absolute"
-          style="z-index: 9; right: 24px; top: 20px"
-        >
-          <button
-            style="height: 35px; width: 35px"
-            (click)="addCandidateInput()"
-            class="btn p-1 btn-primary me-2"
-          >
-            <i class="pi pi-plus"></i>
-          </button>
-        </div>
-        <!-- <div class="card-title">Add candidates</div> -->
-        <p-card subheader="Add candidates">
-          <div
-            class="card mb-3 candidate-card shadow-sm"
-            *ngFor="let candidate of addCandidateData; let i = index"
-          >
-            <div class="card-body p-1 d-flex">
-              <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
-              <div class="info flex-fill d-flex">
-                <input
-                  class="form-control form-control-sm me-1"
-                  type="text"
-                  [(ngModel)]="candidate.name"
-                />
-                <input
-                  class="form-control form-control-sm me-1"
-                  type="text"
-                  [(ngModel)]="candidate.candidate_id"
-                />
-              </div>
-              <div class="actions d-flex">
-                <!-- <div class="mx-1" style="line-height: 35px">
-                  <i class="pi pi-check"></i>
-                </div> -->
-                <div class="mx-2" style="line-height: 35px">
-                  <i class="pi pi-times" (click)="removeCandidateFromCandidateInput(i)"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="actions d-flex flex-row-reverse">
-            <button class="btn btn-danger" (click)="addCandidateData = []">Cancel</button>
-            <button class="btn btn-primary me-2" (click)="addCandidatesToQueue()">Save</button>
-          </div>
-        </p-card>
-        
-      </div>
-      <div class="col-4">
-        <p-card *ngIf="queue && queueData">
+      
+      <div [class.col-4]="innerWidth > 999" [class.mb-3]="innerWidth <= 999">
+        <p-card [subheader]="'Queue'" *ngIf="queue && queueData">
           <div class="field queue_manage d-flex mb-3">
             <label for="topicinput" class="form-label me-2">Topic</label>
             <input
@@ -181,8 +135,72 @@
           </div>
         </p-card>
       </div>
-      <div class="col-8">
-        <p-card [header]="'Candidates'">
+
+      <div
+        class="mb-3 col-12 position-relative"
+        *ngIf="addCandidateData.length"
+      >
+        <div
+          class="position-absolute"
+          style="z-index: 9; right: 24px; top: 20px"
+        >
+          <button
+            style="height: 35px; width: 35px"
+            (click)="addCandidateInput()"
+            class="btn p-1 btn-primary me-2"
+          >
+            <i class="pi pi-plus"></i>
+          </button>
+        </div>
+        <!-- <div class="card-title">Add candidates</div> -->
+        <p-card subheader="Add candidates">
+          <div
+            class="card mb-3 candidate-card shadow-sm"
+            *ngFor="let candidate of addCandidateData; let i = index"
+          >
+            <div class="card-body p-1 d-flex">
+              <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
+              <div class="info flex-fill d-flex">
+                <input
+                  class="form-control form-control-sm me-1"
+                  type="text"
+                  [(ngModel)]="candidate.name"
+                />
+                <input
+                  class="form-control form-control-sm me-1"
+                  type="text"
+                  [(ngModel)]="candidate.candidate_id"
+                />
+              </div>
+              <div class="actions d-flex">
+                <!-- <div class="mx-1" style="line-height: 35px">
+                  <i class="pi pi-check"></i>
+                </div> -->
+                <div class="mx-2" style="line-height: 35px">
+                  <i
+                    class="pi pi-times"
+                    (click)="removeCandidateFromCandidateInput(i)"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="actions d-flex flex-row-reverse">
+            <button class="btn btn-danger" (click)="addCandidateData = []">
+              Cancel
+            </button>
+            <button
+              class="btn btn-primary me-2"
+              (click)="addCandidatesToQueue()"
+            >
+              Save
+            </button>
+          </div>
+        </p-card>
+      </div>
+
+      <div [class.col-8]="innerWidth > 999">
+        <p-card [subheader]="'Candidates'">
           <div class="position-relative">
             <div
               class="position-absolute"
@@ -199,7 +217,7 @@
                 class="btn p-1 px-2 btn-primary me-2"
               >
                 <i class="pi pi-plus" style="font-size: 10px"></i>
-                Add Candidates
+                {{ innerWidth > 450? 'Add Candidates':'Add' }} 
               </button>
               <input
                 class="form-control me-auto"
@@ -218,7 +236,7 @@
             >
               <div class="card-body p-1 d-flex">
                 <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
-                <div class="info flex-fill d-flex">
+                <div class="info flex-fill d-flex" [class.justify-content-center]="innerWidth < 450" [class.flex-column]="innerWidth < 450">
                   <input
                     [disabled]="!candidate.edit"
                     class="form-control form-control-sm me-1"

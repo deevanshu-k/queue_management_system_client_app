@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
@@ -35,6 +35,7 @@ export interface Candidate {
   styleUrl: './queue.component.css',
 })
 export class QueueComponent {
+  innerWidth: number = window.innerWidth;
   noOfDoneCandidates: number = 0;
   queueData?: Queue;
   candidates: Candidate[] = [];
@@ -55,6 +56,11 @@ export class QueueComponent {
 
   constructor(private managerService: ManagerService) {
     this.fetchQueueData();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
   }
 
   fetchQueueData() {
