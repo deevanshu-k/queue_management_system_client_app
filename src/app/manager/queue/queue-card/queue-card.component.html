@@ -1,0 +1,97 @@
+<p-card [subheader]="'Queue'" *ngIf="queue && queueData">
+  <div class="field queue_manage d-flex mb-3">
+    <label for="topicinput" class="form-label me-2">Topic</label>
+    <input
+      type="text"
+      class="form-control"
+      id="topicinput"
+      placeholder="eg: company name"
+      [(ngModel)]="queue.topic"
+    />
+  </div>
+  <div class="field queue_manage d-flex mb-3">
+    <label for="managername" class="form-label me-2">Manager</label>
+    <input
+      type="text"
+      class="form-control"
+      id="managername"
+      placeholder="eg: company name"
+      [(ngModel)]="queue.managername"
+    />
+  </div>
+  <div class="field queue_manage d-flex mb-3">
+    <label class="form-label me-2">Type</label>
+    <select
+      [(ngModel)]="queue.type"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="INTERNAL">Internal</option>
+      <option value="EXTERNAL">External</option>
+      <option value="INTERVIEW">Interview</option>
+    </select>
+  </div>
+  <div class="field queue_manage d-flex mb-3">
+    <label class="form-label me-2">Status</label>
+    <select
+      [(ngModel)]="queue.status"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="PENDING">Not Started</option>
+      <option value="ONGOING">Live</option>
+      <option value="COMPLETED">Completed</option>
+    </select>
+  </div>
+
+  <div class="field queue_manage d-flex mb-3">
+    <label for="managername" class="form-label me-2">Date</label>
+    <input
+      type="date"
+      class="form-control"
+      id="managername"
+      placeholder="eg: company name"
+      [(ngModel)]="queue.startdate"
+    />
+  </div>
+
+  <div class="field queue_manage d-flex mb-3">
+    <label for="managername" class="form-label me-2">Time</label>
+    <input
+      type="time"
+      class="form-control"
+      id="managername"
+      placeholder="eg: company name"
+      [(ngModel)]="queue.starttime"
+    />
+  </div>
+  <div class="actions">
+    <button
+      (click)="saveQueueData()"
+      [disabled]="
+        queue.topic === queueData.topic &&
+        queue.managername === queueData.managername &&
+        queue.type === queueData.type &&
+        queue.status === queueData.status &&
+        queue.startdate === queueData.startdate &&
+        queue.starttime === queueData.starttime
+      "
+      class="btn btn-primary me-2"
+    >
+      Save
+    </button>
+    <button
+      (click)="resetQueueData()"
+      [disabled]="
+        queue.topic === queueData.topic &&
+        queue.type === queueData.type &&
+        queue.status === queueData.status &&
+        queue.startdate === queueData.startdate &&
+        queue.starttime === queueData.starttime
+      "
+      class="btn btn-danger"
+    >
+      Reset
+    </button>
+  </div>
+</p-card>
