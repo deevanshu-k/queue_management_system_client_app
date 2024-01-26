@@ -9,7 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManagerService } from '../../services/manager.service';
 import { Queue } from '../../services/viewer-socket.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TooltipModule } from 'primeng/tooltip';
 import { DragDropModule } from 'primeng/dragdrop';
+
+import * as XLSX from 'xlsx';
 
 export interface Candidate {
   id: string;
@@ -33,6 +36,7 @@ export interface Candidate {
     ReactiveFormsModule,
     FormsModule,
     DragDropModule,
+    TooltipModule
   ],
   templateUrl: './queue.component.html',
   styleUrl: './queue.component.css',
@@ -287,5 +291,28 @@ export class QueueComponent {
           alert(error.error.message);
         },
       });
+  }
+
+  uploadFile(event: any) {
+    if (!event.target.files[0]) return;
+    const selectedFile = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsBinaryString(selectedFile);
+    fileReader.onload = (event: any) => {
+      let binaryData = event.target.result;
+      let workbook = XLSX.read(binaryData, { type: 'binary', cellDates: true });
+      workbook.SheetNames.forEach((sheet) => {
+        const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+        console.log(data);
+        data.forEach((candidate: any) => {
+          if (candidate.id && candidate.name) {
+            this.addCandidateData.push({
+              candidate_id: String(candidate.id),
+              name: String(candidate.name),
+            });
+          }
+        });
+      });
+    };
   }
 }

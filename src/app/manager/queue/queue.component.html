@@ -136,70 +136,91 @@
         </p-card>
       </div>
 
-      <div
-        class="mb-3 col-12 position-relative"
-        *ngIf="addCandidateData.length"
-      >
+      <div [class.col-8]="innerWidth > 999">
         <div
-          class="position-absolute"
-          style="z-index: 9; right: 24px; top: 20px"
+          class="mb-3 col-12 position-relative"
+          *ngIf="addCandidateData.length"
         >
-          <button
-            style="height: 35px; width: 35px"
-            (click)="addCandidateInput()"
-            class="btn p-1 btn-primary me-2"
-          >
-            <i class="pi pi-plus"></i>
-          </button>
-        </div>
-        <!-- <div class="card-title">Add candidates</div> -->
-        <p-card subheader="Add candidates">
           <div
-            class="card mb-3 candidate-card shadow-sm"
-            *ngFor="let candidate of addCandidateData; let i = index"
+            class="position-absolute"
+            style="z-index: 9; right: 24px; top: 20px"
           >
-            <div class="card-body p-1 d-flex">
-              <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
-              <div class="info flex-fill d-flex">
-                <input
-                  class="form-control form-control-sm me-1"
-                  type="text"
-                  [(ngModel)]="candidate.name"
-                />
-                <input
-                  class="form-control form-control-sm me-1"
-                  type="text"
-                  [(ngModel)]="candidate.candidate_id"
-                />
-              </div>
-              <div class="actions d-flex">
-                <!-- <div class="mx-1" style="line-height: 35px">
+            <input
+              type="file"
+              #importcandidate
+              (change)="uploadFile($event)"
+              class="form-control form-control-sm"
+              accept=".xls,.xlsx"
+              style="display: none"
+            />
+            <button
+              pTooltip="Must have id and name columns"
+              type="button"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-title="Must have id and name column"
+              style="height: 35px; width: 35px"
+              (click)="importcandidate.click()"
+              class="btn p-1 btn-primary me-2"
+            >
+              <i class="pi pi-file-import"></i>
+            </button>
+            <button
+              style="height: 35px; width: 35px"
+              (click)="addCandidateInput()"
+              class="btn p-1 btn-primary me-2"
+            >
+              <i class="pi pi-plus"></i>
+            </button>
+          </div>
+          <!-- <div class="card-title">Add candidates</div> -->
+          <p-card subheader="Add candidates">
+            <div
+              class="card mb-3 candidate-card shadow-sm"
+              *ngFor="let candidate of addCandidateData; let i = index"
+            >
+              <div class="card-body p-1 d-flex">
+                <div class="px-3" style="line-height: 35px">#{{ i + 1 }}</div>
+                <div class="info flex-fill d-flex">
+                  <input
+                    class="form-control form-control-sm me-1"
+                    type="text"
+                    placeholder="name*"
+                    [(ngModel)]="candidate.name"
+                  />
+                  <input
+                    class="form-control form-control-sm me-1"
+                    type="text"
+                    placeholder="candidate id*"
+                    [(ngModel)]="candidate.candidate_id"
+                  />
+                </div>
+                <div class="actions d-flex">
+                  <!-- <div class="mx-1" style="line-height: 35px">
                   <i class="pi pi-check"></i>
                 </div> -->
-                <div class="mx-2" style="line-height: 35px">
-                  <i
-                    class="pi pi-times"
-                    (click)="removeCandidateFromCandidateInput(i)"
-                  ></i>
+                  <div class="mx-2" style="line-height: 35px">
+                    <i
+                      class="pi pi-times"
+                      (click)="removeCandidateFromCandidateInput(i)"
+                    ></i>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="actions d-flex flex-row-reverse">
-            <button class="btn btn-danger" (click)="addCandidateData = []">
-              Cancel
-            </button>
-            <button
-              class="btn btn-primary me-2"
-              (click)="addCandidatesToQueue()"
-            >
-              Save
-            </button>
-          </div>
-        </p-card>
-      </div>
-
-      <div [class.col-8]="innerWidth > 999">
+            <div class="actions d-flex flex-row-reverse">
+              <button class="btn btn-danger" (click)="addCandidateData = []">
+                Cancel
+              </button>
+              <button
+                class="btn btn-primary me-2"
+                (click)="addCandidatesToQueue()"
+              >
+                Save
+              </button>
+            </div>
+          </p-card>
+        </div>
         <p-card [subheader]="'Candidates'">
           <div class="position-relative">
             <div
@@ -256,7 +277,12 @@
                     />
                   </svg>
                 </div>
-                <div class="px-3" [style.line-height]="innerWidth < 450 ? '60px' : '35px'">#{{ i + 1 }}</div>
+                <div
+                  class="px-3"
+                  [style.line-height]="innerWidth < 450 ? '60px' : '35px'"
+                >
+                  #{{ i + 1 }}
+                </div>
                 <div
                   class="info flex-fill d-flex"
                   [class.justify-content-center]="innerWidth < 450"
@@ -319,14 +345,22 @@
                       (click)="candidate.edit = false; resetCandidateData(i)"
                     ></i>
                   </div>
-                  <input
-                    *ngIf="!candidate.edit"
-                    class="form-check-input mx-1"
-                    style="width: 26px; height: 26px"
-                    type="checkbox"
-                    [(ngModel)]="candidate.status"
-                    (change)="saveCandidateData(i)"
-                  />
+
+                  <span
+                    [pTooltip]="
+                      queueData?.status === 'ONGOING' ? '' : 'Queue is not live'
+                    "
+                  >
+                    <input
+                      *ngIf="!candidate.edit"
+                      class="form-check-input mx-1"
+                      style="width: 26px; height: 26px"
+                      type="checkbox"
+                      [disabled]="queueData?.status != 'ONGOING'"
+                      [(ngModel)]="candidate.status"
+                      (change)="saveCandidateData(i)"
+                    />
+                  </span>
                 </div>
               </div>
             </div>
