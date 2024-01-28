@@ -90,6 +90,8 @@
         {{ innerWidth > 450 ? "Add Candidates" : "Add" }}
       </button>
       <input
+        (input)="searchinputchange()"
+        [(ngModel)]="searchinput"
         class="form-control me-auto"
         placeholder="search..."
         style="max-width: 200px; height: 30px"
@@ -99,6 +101,83 @@
       />
     </div>
 
+    @if (searchedCandidates.length) {
+    <div class="subheading py-1">Search Results:</div>
+    <div
+      class="card mb-3 candidate-card shadow-sm"
+      [ngClass]="{ 'active-card': candidates[i].status }"
+      *ngFor="let i of searchedCandidates"
+    >
+      <div class="card-body p-1 d-flex">
+        <div
+          class="px-3"
+          [style.line-height]="innerWidth < 450 ? '60px' : '35px'"
+        >
+          #{{ i + 1 }}
+        </div>
+        <div
+          class="info flex-fill d-flex"
+          [class.justify-content-center]="innerWidth < 450"
+          [class.flex-column]="innerWidth < 450"
+        >
+          <input
+            [disabled]="true"
+            class="form-control form-control-sm me-1"
+            placeholder="name"
+            type="text"
+            [(ngModel)]="candidates[i].name"
+          />
+          <input
+            [disabled]="true"
+            class="form-control form-control-sm me-1"
+            placeholder="Candidate Id"
+            type="text"
+            [(ngModel)]="candidates[i].candidate_id"
+          />
+        </div>
+        <div class="actions d-flex">
+          <!-- <div class="mx-1" *ngIf="candidate.edit" style="line-height: 35px">
+            <i
+              class="pi pi-check"
+              (click)="candidate.edit = false; saveCandidateData(i)"
+            ></i>
+          </div>
+          <div class="mx-1" *ngIf="!candidate.edit" style="line-height: 35px">
+            <i class="pi pi-pencil" (click)="candidate.edit = true"></i>
+          </div> -->
+          <div class="mx-2" style="line-height: 35px">
+            <i
+              class="pi pi-trash"
+              (click)="
+                confirmDeleteCandidate(candidates[i].id, candidates[i].name)
+              "
+            ></i>
+          </div>
+          <!-- <div class="mx-2" *ngIf="candidate.edit" style="line-height: 35px">
+            <i
+              class="pi pi-times"
+              (click)="candidate.edit = false; resetCandidateData(i)"
+            ></i>
+          </div> -->
+
+          <span
+            [pTooltip]="
+              queueData.status === 'ONGOING' ? '' : 'Queue is not live'
+            "
+          >
+            <input
+              class="form-check-input mx-1"
+              style="width: 26px; height: 26px"
+              type="checkbox"
+              [disabled]="queueData.status != 'ONGOING'"
+              [(ngModel)]="candidates[i].status"
+              (change)="saveCandidateData(i)"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    } @else {
     <div
       class="card mb-3 candidate-card shadow-sm"
       [ngClass]="{ 'active-card': candidate.status }"
@@ -199,5 +278,6 @@
         </div>
       </div>
     </div>
+    }
   </div>
 </p-card>

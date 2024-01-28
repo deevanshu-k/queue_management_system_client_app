@@ -51,6 +51,10 @@ export class CandidateCardComponent implements OnChanges {
     name: string;
   }[] = [];
 
+  // Search Candidate
+  searchedCandidates: number[] = [];
+  searchinput: string = "";
+
   constructor(private managerService: ManagerService) {}
 
   ngOnChanges(): void {
@@ -81,6 +85,7 @@ export class CandidateCardComponent implements OnChanges {
         }
         this.candidates = this.candidates.filter((c) => c.id != candidateId);
         this.calculateNoOfDoneCandidates();
+        this.searchinputchange();
       },
       error: (error) => {
         alert(error.error.message);
@@ -133,6 +138,7 @@ export class CandidateCardComponent implements OnChanges {
                 this.candidates[index].status;
             }
             this.calculateNoOfDoneCandidates();
+            this.searchinputchange();
           },
           error: (error) => {
             alert(error.error.message);
@@ -236,5 +242,15 @@ export class CandidateCardComponent implements OnChanges {
           alert(error.error.message);
         },
       });
+  }
+
+  searchinputchange(){
+    this.searchedCandidates = [];
+    if(!this.searchinput) return;
+    this.candidates.forEach(c => {
+      if((`${c.name} ${c.candidate_id}`).toLowerCase().includes(this.searchinput.toLowerCase())){
+        this.searchedCandidates.push(this.candidates.indexOf(c));
+      }
+    })
   }
 }
