@@ -1,8 +1,8 @@
 <p-card subheader="Candidates">
   <div class="position-relative">
     <div class="position-absolute" style="z-index: 9; right: 0px; top: -60px">
-      Total: 
-        {{ candidates.length }}
+      Total:
+      {{ candidates.length }}
     </div>
 
     <div class="d-flex flex-row-reverse my-2 mb-3">
@@ -13,9 +13,11 @@
         (click)="addCandidateInput()"
       >
         <i class="pi pi-plus" style="font-size: 10px"></i>
-        {{ innerWidth > 450? 'Add Candidates':'Add' }} 
+        {{ innerWidth > 450 ? "Add Candidates" : "Add" }}
       </button>
       <input
+        (input)="searchinputchange()"
+        [(ngModel)]="searchinput"
         class="form-control me-auto"
         placeholder="search..."
         style="max-width: 200px; height: 30px"
@@ -24,7 +26,70 @@
         id=""
       />
     </div>
-
+    @if (searchedCandidates.length) {
+    <div class="subheading py-1">Search Results:</div>
+    <div
+      class="card mb-3 candidate-card shadow-sm"
+      *ngFor="let i of searchedCandidates"
+    >
+      <div class="card-body p-1 d-flex">
+        <div
+          class="px-3"
+          [style.line-height]="innerWidth < 450 ? '60px' : '35px'"
+        >
+          #{{ i + 1 }}
+        </div>
+        <div
+          class="info flex-fill d-flex"
+          [class.justify-content-center]="innerWidth < 450"
+          [class.flex-column]="innerWidth < 450"
+        >
+          <input
+            [disabled]="!candidates[i].edit"
+            class="form-control form-control-sm me-1"
+            placeholder="Candidate Id"
+            type="text"
+            [(ngModel)]="candidates[i].candidate_id"
+          />
+          <input
+            [disabled]="!candidates[i].edit"
+            class="form-control form-control-sm me-1"
+            placeholder="Candidate Name"
+            type="text"
+            [(ngModel)]="candidates[i].name"
+          />
+        </div>
+        <div class="actions d-flex" [class.flex-column]="innerWidth < 450">
+          <!-- <div class="mx-1" style="line-height: 35px;">
+                <i class="pi pi-check"></i>
+              </div>
+              <div class="mx-1" style="line-height: 35px;">
+                <i class="pi pi-times"></i>
+              </div> -->
+          <div
+            class="mx-2"
+            *ngIf="candidates[i].edit"
+            style="line-height: 35px"
+          >
+            <i class="pi pi-check" (click)="candidates[i].edit = false"></i>
+          </div>
+          <div
+            class="mx-2"
+            *ngIf="!candidates[i].edit"
+            style="line-height: 35px"
+          >
+            <i class="pi pi-pencil" (click)="candidates[i].edit = true"></i>
+          </div>
+          <div class="mx-2" style="line-height: 35px">
+            <i class="pi pi-trash" (click)="removeCandidate(i)"></i>
+          </div>
+          <!-- <div class="mx-2" *ngIf="candidate.edit" style="line-height: 35px">
+            <i class="pi pi-times" (click)="candidate.edit = false"></i>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    } @else {
     <div
       pDraggable="hello"
       pDroppable="hello"
@@ -35,7 +100,7 @@
       *ngFor="let candidate of candidates; let i = index"
     >
       <div class="card-body p-1 d-flex">
-        <div [style.line-height]="innerWidth < 450?'60px':''">
+        <div [style.line-height]="innerWidth < 450 ? '60px' : ''">
           <svg
             class="barsHandle"
             xmlns="http://www.w3.org/2000/svg"
@@ -49,8 +114,17 @@
             />
           </svg>
         </div>
-        <div class="px-3" [style.line-height]="innerWidth < 450?'60px':'35px'">#{{ i + 1 }}</div>
-        <div class="info flex-fill d-flex" [class.justify-content-center]="innerWidth < 450" [class.flex-column]="innerWidth < 450">
+        <div
+          class="px-3"
+          [style.line-height]="innerWidth < 450 ? '60px' : '35px'"
+        >
+          #{{ i + 1 }}
+        </div>
+        <div
+          class="info flex-fill d-flex"
+          [class.justify-content-center]="innerWidth < 450"
+          [class.flex-column]="innerWidth < 450"
+        >
           <input
             [disabled]="!candidate.edit"
             class="form-control form-control-sm me-1"
@@ -88,5 +162,6 @@
         </div>
       </div>
     </div>
+    }
   </div>
 </p-card>

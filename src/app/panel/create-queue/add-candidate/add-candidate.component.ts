@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { DragDropModule } from 'primeng/dragdrop';
@@ -24,6 +30,10 @@ export class AddCandidateComponent {
   // @Output('candidates') emitCandidates: EventEmitter<Candidate[]> =
   //   new EventEmitter<Candidate[]>();
 
+  // Search Candidate
+  searchedCandidates: number[] = [];
+  searchinput: string = '';
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.innerWidth = window.innerWidth;
@@ -43,6 +53,7 @@ export class AddCandidateComponent {
 
   removeCandidate(index: number) {
     this.candidates.splice(index, 1);
+    this.searchinputchange();
     // this.emitCandidates.emit(this.candidates);
   }
 
@@ -52,6 +63,22 @@ export class AddCandidateComponent {
       name: '',
       edit: true,
     });
+    this.searchinput = '';
+    this.searchinputchange();
     // this.emitCandidates.emit(this.candidates);
+  }
+
+  searchinputchange() {
+    this.searchedCandidates = [];
+    if (!this.searchinput) return;
+    this.candidates.forEach((c) => {
+      if (
+        `${c.name} ${c.candidate_id}`
+          .toLowerCase()
+          .includes(this.searchinput.toLowerCase())
+      ) {
+        this.searchedCandidates.push(this.candidates.indexOf(c));
+      }
+    });
   }
 }
