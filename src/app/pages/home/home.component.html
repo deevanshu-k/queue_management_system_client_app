@@ -1,3 +1,142 @@
-<p>home works!</p>
+<div class="main">
+  <div class="header-container">
+    <!-- navbar html  -->
+    <div class="nav-bar">
+      <!-- nav-logo-->
+      <div class="nav-logo" style="font-family: 'Nunito'">
+        <B class="animate-charcter fw-bold">Cataline</B>
+      </div>
+    </div>
+  </div>
 
-<button [routerLink]="['/queue/create']">Create Queue</button>
+  <!-- header-content -->
+  <div class="content-wrapper align-items-center justify-content-center">
+    <div class="content-left d-flex align-items-center justify-content-center">
+      <div class="content-left-text p-0">
+        <div class="text-center fw-semibold" style="font-size: 48px">
+          Welcome to
+          <span
+            class="fw-bold"
+            id="cataline-head"
+            style="color: #20e1ae; letter-spacing: 1.5px"
+            >Cataline.</span
+          >
+        </div>
+        <div
+          class="text-center fw-semibold"
+          style="font-size: 48px; word-spacing: 8px"
+        >
+          Create queue hassle free!
+        </div>
+        <div
+          class="actions d-flex align-items-center justify-content-center px-3 m-2"
+        >
+          <button
+            class="border m-2 border-4 fw-bolder rounded-pill px-3 py-2 fs-5"
+            style="color: #20e1ae; border-color: #20e1ae !important"
+            [routerLink]="['/queue/create']"
+          >
+            Create Queue
+          </button>
+          <!-- <button
+            class="border m-2 border-4 fw-bolder rounded-pill px-3 py-2 fs-5"
+            style="color: #20e1ae; border-color: #20e1ae !important"
+          >
+            Manage Queues
+          </button> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="content-right">
+          <div class="content-right-img">
+            <img src="assets/content-right-img.jpg" alt="" />
+          </div>
+        </div> -->
+  </div>
+
+  <div class="main-content">
+    <div class="box-wrapper">
+      <div class="box-wrapper-heading">
+        <h1 class="fw-bold">Why Use Cataline?</h1>
+      </div>
+      <div class="box-wrapper-subheading fw-bolder text-center">
+        Cataline is a feature rich application which enables you to have control
+        & accuracy with everyaction.
+      </div>
+
+      <div class="box-container d-flex flex-row">
+        <div class="box">
+          <div class="box-img"><img src="assets/box1.png" alt="" /></div>
+          <div class="box-heading fw-bolder">
+            <b class="fw-bolder">Faster Operations</b>
+          </div>
+          <div class="box-heading-seperator">
+            <p></p>
+          </div>
+          <div class="box-subheading">
+            <b class="fw-bolder">
+              Cataline Queue Manager accelerates operations, enhancing
+              efficiency with rapid task processing and optimized queuing
+              mechanisms for faster workflow execution.</b
+            >
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-img"><img src="assets/shield.png" alt="" /></div>
+          <div class="box-heading fw-bolder">
+            <b class="fw-bolder">Highly Secure</b>
+          </div>
+          <div class="box-heading-seperator"></div>
+          <div class="box-subheading">
+            <b class="fw-bolder"
+              >Unparalleled security features ensure the highest level of
+              protection for your critical data and communications.</b
+            >
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-img"><img src="assets/add-group.png" alt="" /></div>
+          <div class="box-heading"><b class="fw-bolder">User-Friendly</b></div>
+          <div class="box-heading-seperator"></div>
+          <div class="box-subheading">
+            <b class="fw-bolder"
+              >We ensures a seamless experience with its user-friendly
+              interface, simplifying task management and optimizing workflow
+              efficiency.</b
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- </div> -->
+
+  <div style="display: none" class="footer">
+    <h1 style="background-color: transparent">
+      A Product Of <span>Cataline.</span>
+    </h1>
+    <div class="social-media-icons">
+      <br />
+
+      <div align="center" class="socialbtns">
+        <ul>
+          <li><a href="#" class="fa fa-lg fa-facebook"></a></li>
+          <!-- <li><a href="#" class="fa fa-lg fa-twitter"></a></li> -->
+          <!-- <li><a href="#" class="fa fa-lg fa-google-plus"></a></li> -->
+          <li><a href="#" class="fa fa-lg fa-github"></a></li>
+          <!-- <li><a href="#" class="fa fa-lg fa-pinterest"></a></li> -->
+          <li><a href="#" class="fa fa-lg fa-linkedin"></a></li>
+          <li><a href="#" class="fa fa-lg fa-instagram"></a></li>
+          <li><a href="#" class="fa fa-lg fa-youtube"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="subfooter fw-bolder">
+    2024 Cataline.in | All rights reserved | {{ "sales@cataline.in" }}
+  </div>
+</div>
