@@ -53,7 +53,7 @@ export class CandidateCardComponent implements OnChanges {
 
   // Search Candidate
   searchedCandidates: number[] = [];
-  searchinput: string = "";
+  searchinput: string = '';
 
   constructor(private managerService: ManagerService) {}
 
@@ -244,13 +244,17 @@ export class CandidateCardComponent implements OnChanges {
       });
   }
 
-  searchinputchange(){
+  searchinputchange() {
     this.searchedCandidates = [];
-    if(!this.searchinput) return;
-    this.candidates.forEach(c => {
-      if((`${c.name} ${c.candidate_id}`).toLowerCase().includes(this.searchinput.toLowerCase())){
+    if (!this.searchinput) return;
+    this.candidates.forEach((c) => {
+      if (
+        `${c.name} ${c.candidate_id}`
+          .toLowerCase()
+          .includes(this.searchinput.toLowerCase())
+      ) {
         this.searchedCandidates.push(this.candidates.indexOf(c));
       }
-    })
+    });
   }
 }

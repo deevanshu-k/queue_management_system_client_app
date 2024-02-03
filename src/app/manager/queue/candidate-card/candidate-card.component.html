@@ -90,6 +90,27 @@
         {{ innerWidth > 450 ? "Add Candidates" : "Add" }}
       </button>
       <input
+        type="file"
+        #importcandidate2
+        (change)="uploadFile($event)"
+        class="form-control form-control-sm"
+        accept=".xls,.xlsx"
+        style="display: none"
+      />
+      <button
+        *ngIf="!addCandidateData.length"
+        pTooltip="Must have id and name columns"
+        type="button"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-title="Must have id and name column"
+        style="height: 30px; font-size: 12px; width: 30px"
+        (click)="importcandidate2.click()"
+        class="btn px-1 btn-primary me-2"
+      >
+        <i class="pi pi-file-import"></i>
+      </button>
+      <input
         (input)="searchinputchange()"
         [(ngModel)]="searchinput"
         class="form-control me-auto"

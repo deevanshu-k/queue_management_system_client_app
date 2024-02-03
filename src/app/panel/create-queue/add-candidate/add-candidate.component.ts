@@ -6,9 +6,11 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { DragDropModule } from 'primeng/dragdrop';
+import { TooltipModule } from 'primeng/tooltip';
 
 interface Candidate {
   candidate_id: string;
@@ -19,7 +21,13 @@ interface Candidate {
 @Component({
   selector: 'app-add-candidate',
   standalone: true,
-  imports: [CardModule, CommonModule, FormsModule, DragDropModule],
+  imports: [
+    CardModule,
+    CommonModule,
+    FormsModule,
+    DragDropModule,
+    TooltipModule,
+  ],
   templateUrl: './add-candidate.component.html',
   styleUrl: './add-candidate.component.css',
 })
@@ -80,5 +88,29 @@ export class AddCandidateComponent {
         this.searchedCandidates.push(this.candidates.indexOf(c));
       }
     });
+  }
+
+  uploadFile(event: any) {
+    if (!event.target.files[0]) return;
+    const selectedFile = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsBinaryString(selectedFile);
+    fileReader.onload = (event: any) => {
+      let binaryData = event.target.result;
+      let workbook = XLSX.read(binaryData, { type: 'binary', cellDates: true });
+      workbook.SheetNames.forEach((sheet) => {
+        const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+        console.log(data);
+        data.forEach((candidate: any) => {
+          if (candidate.id && candidate.name) {
+            this.candidates.push({
+              candidate_id: String(candidate.id),
+              name: String(candidate.name),
+              edit: true,
+            });
+          }
+        });
+      });
+    };
   }
 }
