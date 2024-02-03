@@ -42,19 +42,47 @@
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
-        <div class="p-2" *ngIf="queueData && queueData.status === 'ONGOING' && nextCandidates.length">
-          <h6>Next Three</h6>
-          <div class="p-1">
-            <div
-            class="card p-2 mb-2"
-            *ngFor="let candidate of nextCandidates"
-          >
-            <div class="row">
-              <div class="col-2">#{{ candidate.index + 1 }}</div>
-              <div class="col-5">{{ candidate.candidate_id }}</div>
-              <div class="col-5">{{ candidate.name }}</div>
-            </div>
+        <div
+          class="p-2"
+          *ngIf="
+            queueData && queueData.status === 'ONGOING' && nextCandidates.length
+          "
+        >
+          <!-- Notification -->
+          <div class="d-flex justify-content-between">
+            <div class="h6">Next Candidates</div>
+            <button
+              class="position-relative btn btn-primary border"
+              style="font-size: 10px"
+            >
+              Notifications
+              <div
+                class="position-absolute text-dark"
+                style="
+                  background-color: white;
+                  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+                    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+                  width: 15px;
+                  height: 15px;
+                  border-radius: 50%;
+                  top: -4px;
+                  right: -4px;
+                  font-size: 10px;
+                "
+              >
+                4
+              </div>
+            </button>
           </div>
+          <!-- Notification-End -->
+          <div class="p-1">
+            <div class="card p-2 mb-2" *ngFor="let candidate of nextCandidates">
+              <div class="row">
+                <div class="col-2">#{{ candidate.index + 1 }}</div>
+                <div class="col-5">{{ candidate.candidate_id }}</div>
+                <div class="col-5">{{ candidate.name }}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -82,8 +110,12 @@
           </div>
         </ng-template>
         <div class="card-header row">
-          <div class="col px-3 mb-3">Date: {{ queueData.startdate }}</div>
-          <div class="col px-3 mb-3">Time: {{ queueData.starttime }}</div>
+          <div class="col px-3 mb-3">
+            Date: {{ queueData.startdate | date }}
+          </div>
+          <div class="col px-3 mb-3">
+            Time: {{ queueData.starttime | convert24to12 }}
+          </div>
         </div>
         <div class="card-body">
           <div

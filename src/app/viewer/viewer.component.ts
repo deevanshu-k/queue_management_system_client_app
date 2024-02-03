@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { Convert24to12Pipe } from '../pipes/convert24to12.pipe';
 
 @Component({
   selector: 'app-viewer',
@@ -21,6 +22,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToastModule,
     CommonModule,
     ProgressSpinnerModule,
+    Convert24to12Pipe,
   ],
   providers: [MessageService],
   templateUrl: './viewer.component.html',
@@ -32,9 +34,9 @@ export class ViewerComponent implements OnInit {
   errorCode?: number;
 
   nextCandidates: {
-    index: number,
-    name: string,
-    candidate_id: string
+    index: number;
+    name: string;
+    candidate_id: string;
   }[] = [];
   constructor(
     private route: ActivatedRoute,
@@ -50,11 +52,12 @@ export class ViewerComponent implements OnInit {
       for (let i = 0; i < this.queueData?.candidates.length; i++) {
         const element = this.queueData?.candidates[i];
         if (this.nextCandidates.length >= 3) break;
-        if (element.status == false) this.nextCandidates.push({
-          index: i,
-          name: element.name,
-          candidate_id: element.candidate_id
-        });
+        if (element.status == false)
+          this.nextCandidates.push({
+            index: i,
+            name: element.name,
+            candidate_id: element.candidate_id,
+          });
       }
     }
   }
