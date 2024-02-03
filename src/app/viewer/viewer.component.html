@@ -58,7 +58,6 @@
           </div>
         </div>
       </div>
-
       <p-card
         [header]="
           queueData.topic +
@@ -76,6 +75,11 @@
             alt="Card"
             src="https://online.wharton.upenn.edu/wp-content/uploads/Job-seeker-during-an-interview-facing-three-interviewers.jpg"
           /> -->
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="text-center text-light-50">
+            2024 Cataline.in | All rights reserved | {{ "sales@cataline.in" }}
+          </div>
         </ng-template>
         <div class="card-header row">
           <div class="col px-3 mb-3">Date: {{ queueData.startdate }}</div>
