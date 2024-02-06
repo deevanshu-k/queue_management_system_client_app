@@ -1,142 +1,227 @@
 <div class="main">
-  <div class="header-container">
-    <!-- navbar html  -->
-    <div class="nav-bar">
-      <!-- nav-logo-->
-      <div class="nav-logo" style="font-family: 'Nunito'">
-        <B class="animate-charcter fw-bold">Cataline</B>
-      </div>
+  <div class="fixed-top p-3">
+    <span class="fs-1 fw-bold animate-charcter">CATALINE</span>
+  </div>
+  <div
+    class="header fs-1 d-flex flex-column align-items-center justify-content-center text-dark"
+  >
+    <div class="fw-bolder">
+      Welcome to
+      <span class="fw-bold animate-charcter">Cataline.</span>
+    </div>
+    <div class="fw-bolder text-center">Create queue hassle free!</div>
+    <div class="action">
+      <button
+        class="btn fs-4 fw-bolder text-white py-2 px-3 border-0"
+        [routerLink]="['/queue/create']"
+      >
+        Create Queue
+      </button>
     </div>
   </div>
-
-  <!-- header-content -->
-  <div class="content-wrapper align-items-center justify-content-center">
-    <div class="content-left d-flex align-items-center justify-content-center">
-      <div class="content-left-text p-0">
-        <div class="text-center fw-semibold" style="font-size: 48px">
-          Welcome to
-          <span
-            class="fw-bold"
-            id="cataline-head"
-            style="color: #20e1ae; letter-spacing: 1.5px"
-            >Cataline.</span
-          >
-        </div>
-        <div
-          class="text-center fw-semibold"
-          style="font-size: 48px; word-spacing: 8px"
-        >
-          Create queue hassle free!
-        </div>
-        <div
-          class="actions d-flex align-items-center justify-content-center px-3 m-2"
-        >
-          <button
-            class="border m-2 border-4 fw-bolder rounded-pill px-3 py-2 fs-5"
-            style="color: #20e1ae; border-color: #20e1ae !important"
-            [routerLink]="['/queue/create']"
-          >
-            Create Queue
-          </button>
-          <!-- <button
-            class="border m-2 border-4 fw-bolder rounded-pill px-3 py-2 fs-5"
-            style="color: #20e1ae; border-color: #20e1ae !important"
-          >
-            Manage Queues
-          </button> -->
-        </div>
+  <section>
+    <div class="head">
+      <div class="text-center fs-2 fw-bolder">How it works?</div>
+      <div class="text-center px-1 fs-4 fw-semibold">
+        On this platform, the viewer link is designed for candidates, <br />
+        while the manager link is tailored for interviewers.
       </div>
     </div>
-    <!-- <div class="content-right">
-          <div class="content-right-img">
-            <img src="assets/content-right-img.jpg" alt="" />
-          </div>
-        </div> -->
-  </div>
-
-  <div class="main-content">
-    <div class="box-wrapper">
-      <div class="box-wrapper-heading">
-        <h1 class="fw-bold">Why Use Cataline?</h1>
-      </div>
-      <div class="box-wrapper-subheading fw-bolder text-center">
+    <div
+      class="page-header-images pb-5 px-2 d-flex align-items-center justify-content-center"
+    >
+      @if (innerWidth <= 700) {
+      <img class="my-2" src="/assets/flow-dg-2.png" alt="" />
+      } @else {
+      <img src="/assets/flow-dg.png" alt="" />
+      }
+      <!-- <div class="text-dark">hello</div> -->
+    </div>
+  </section>
+  <section>
+    <div class="head">
+      <div class="text-center fs-2 fw-bolder">Why Use Cataline?</div>
+      <div class="text-center px-1 fs-4 fw-semibold">
         Cataline is a feature rich application which enables you to have control
         & accuracy with everyaction.
       </div>
-
-      <div class="box-container d-flex flex-row">
-        <div class="box">
-          <div class="box-img"><img src="assets/box1.png" alt="" /></div>
-          <div class="box-heading fw-bolder">
-            <b class="fw-bolder">Faster Operations</b>
-          </div>
-          <div class="box-heading-seperator">
-            <p></p>
-          </div>
-          <div class="box-subheading">
-            <b class="fw-bolder">
-              Cataline Queue Manager accelerates operations, enhancing
-              efficiency with rapid task processing and optimized queuing
-              mechanisms for faster workflow execution.</b
-            >
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-img"><img src="assets/shield.png" alt="" /></div>
-          <div class="box-heading fw-bolder">
-            <b class="fw-bolder">Highly Secure</b>
-          </div>
-          <div class="box-heading-seperator"></div>
-          <div class="box-subheading">
-            <b class="fw-bolder"
-              >Unparalleled security features ensure the highest level of
-              protection for your critical data and communications.</b
-            >
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-img"><img src="assets/add-group.png" alt="" /></div>
-          <div class="box-heading"><b class="fw-bolder">User-Friendly</b></div>
-          <div class="box-heading-seperator"></div>
-          <div class="box-subheading">
-            <b class="fw-bolder"
-              >We ensures a seamless experience with its user-friendly
-              interface, simplifying task management and optimizing workflow
-              efficiency.</b
-            >
-          </div>
-        </div>
+    </div>
+    <div
+      class="body d-flex flex-row flex-wrap align-items-center justify-content-around"
+    >
+      <div
+        class="card p-4 py-5 mt-1 border-0 d-flex flex-column align-items-center"
+      >
+        <img class="my-2" width="70" src="/assets/box1.png" alt="" />
+        <div class="fs-5 my-2 fw-semibold">Faster Operations</div>
+        <p class="fs-6 m-3 text-center fw-semibold">
+          Cataline Queue Manager accelerates operations, enhancing efficiency
+          with rapid task processing and optimized queuing mechanisms for faster
+          workflow execution.
+        </p>
+      </div>
+      <div
+        class="card p-4 py-5 mt-1 border-0 d-flex flex-column align-items-center"
+      >
+        <img class="my-2" width="70" src="/assets/shield.png" alt="" />
+        <div class="fs-5 my-2 fw-semibold">Highly Secure</div>
+        <p class="fs-6 m-3 text-center fw-semibold">
+          Unparalleled security features ensure the highest level of protection
+          for your critical data and communications.
+        </p>
+      </div>
+      <div
+        class="card p-4 py-5 mt-1 border-0 d-flex flex-column align-items-center"
+      >
+        <img class="my-2" width="70" src="/assets/add-group.png" alt="" />
+        <div class="fs-5 my-2 fw-semibold">User-Friendly</div>
+        <p class="fs-6 m-3 text-center fw-semibold">
+          We ensures a seamless experience with its user-friendly interface,
+          simplifying task management and optimizing workflow efficiency.
+        </p>
       </div>
     </div>
-  </div>
-
-  <!-- </div> -->
-
-  <div style="display: none" class="footer">
-    <h1 style="background-color: transparent">
-      A Product Of <span>Cataline.</span>
-    </h1>
-    <div class="social-media-icons">
-      <br />
-
-      <div align="center" class="socialbtns">
-        <ul>
-          <li><a href="#" class="fa fa-lg fa-facebook"></a></li>
-          <!-- <li><a href="#" class="fa fa-lg fa-twitter"></a></li> -->
-          <!-- <li><a href="#" class="fa fa-lg fa-google-plus"></a></li> -->
-          <li><a href="#" class="fa fa-lg fa-github"></a></li>
-          <!-- <li><a href="#" class="fa fa-lg fa-pinterest"></a></li> -->
-          <li><a href="#" class="fa fa-lg fa-linkedin"></a></li>
-          <li><a href="#" class="fa fa-lg fa-instagram"></a></li>
-          <li><a href="#" class="fa fa-lg fa-youtube"></a></li>
-        </ul>
-      </div>
+  </section>
+  <div class="foot p-1">
+    <div class="fw-bolder text-center">
+      &copy; 2024 Cataline.in. All rights reserved.
+      <!-- Unauthorized use or
+      reproduction of the content, design, or any intellectual property on this
+      website is strictly prohibited. -->
     </div>
-  </div>
-
-  <div class="subfooter fw-bolder">
-    2024 Cataline.in | All rights reserved | {{ "sales@cataline.in" }}
+    <div class="fw-bolder text-center d-none">
+      Contact us: {{ "info@cataline.in" }} | Follow us:
+      <span>
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+              fill="#0F0F0F"
+            ></path>
+            <path
+              d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+              fill="#0F0F0F"
+            ></path>
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+              fill="#0F0F0F"
+            ></path>
+          </g>
+        </svg>
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 20 20"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          fill="#000000"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <title>github [#142]</title>
+            <desc>Created with Sketch.</desc>
+            <defs></defs>
+            <g
+              id="Page-1"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <g
+                id="Dribbble-Light-Preview"
+                transform="translate(-140.000000, -7559.000000)"
+                fill="#000000"
+              >
+                <g id="icons" transform="translate(56.000000, 160.000000)">
+                  <path
+                    d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
+                    id="github-[#142]"
+                  ></path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <path
+              d="M6.5 8C7.32843 8 8 7.32843 8 6.5C8 5.67157 7.32843 5 6.5 5C5.67157 5 5 5.67157 5 6.5C5 7.32843 5.67157 8 6.5 8Z"
+              fill="#0F0F0F"
+            ></path>
+            <path
+              d="M5 10C5 9.44772 5.44772 9 6 9H7C7.55228 9 8 9.44771 8 10V18C8 18.5523 7.55228 19 7 19H6C5.44772 19 5 18.5523 5 18V10Z"
+              fill="#0F0F0F"
+            ></path>
+            <path
+              d="M11 19H12C12.5523 19 13 18.5523 13 18V13.5C13 12 16 11 16 13V18.0004C16 18.5527 16.4477 19 17 19H18C18.5523 19 19 18.5523 19 18V12C19 10 17.5 9 15.5 9C13.5 9 13 10.5 13 10.5V10C13 9.44771 12.5523 9 12 9H11C10.4477 9 10 9.44772 10 10V18C10 18.5523 10.4477 19 11 19Z"
+              fill="#0F0F0F"
+            ></path>
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z"
+              fill="#0F0F0F"
+            ></path>
+          </g>
+        </svg>
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H15V13.9999H17.0762C17.5066 13.9999 17.8887 13.7245 18.0249 13.3161L18.4679 11.9871C18.6298 11.5014 18.2683 10.9999 17.7564 10.9999H15V8.99992C15 8.49992 15.5 7.99992 16 7.99992H18C18.5523 7.99992 19 7.5522 19 6.99992V6.31393C19 5.99091 18.7937 5.7013 18.4813 5.61887C17.1705 5.27295 16 5.27295 16 5.27295C13.5 5.27295 12 6.99992 12 8.49992V10.9999H10C9.44772 10.9999 9 11.4476 9 11.9999V12.9999C9 13.5522 9.44771 13.9999 10 13.9999H12V21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z"
+              fill="#0F0F0F"
+            ></path>
+          </g>
+        </svg>
+      </span>
+    </div>
   </div>
 </div>
