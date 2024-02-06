@@ -5,9 +5,9 @@
 @import "primeicons/primeicons.css";
 
 body {
-    margin: 0px;
-    background-color: whitesmoke !important;
-    font-family: "Nunito";
+  margin: 0px;
+  background-color: whitesmoke !important;
+  font-family: "Nunito";
 }
 
 /* Order */
@@ -15,8 +15,52 @@ body {
 
 /* Reset CSS */
 @layer reset {
-    button,
-    input {
-        /* CSS to Reset */
+  button,
+  input {
+    /* CSS to Reset */
+  }
+}
+
+.p-toast {
+  opacity: 1;
+  max-width: 340px;
+}
+
+@media screen and (max-width:380px) {
+    .p-toast {
+        max-width: 90%;
     }
+}
+
+.p-toast .p-toast-message {
+  margin: 0 0 1rem 0;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+.p-toast .p-toast-message .p-toast-message-content {
+  padding: 0.5rem;
+  border-width: 0 0 0 6px;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
+  margin: 0 0 0 1rem;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+  font-size: 2rem;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon) {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+.p-toast
+  .p-toast-message
+  .p-toast-message-content
+  .p-icon:not(.p-toast-icon-close-icon) {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+  font-weight: 700;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+  margin: 0 0 0 0;
 }
