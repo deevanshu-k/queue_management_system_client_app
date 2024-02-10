@@ -38,11 +38,90 @@
 </div>
 
 <div
-  class="main d-flex justify-content-center align-items-center"
-  style="height: 100vh"
+  class="main p-1 d-flex justify-content-center align-items-center"
+  style="min-height: 100vh;"
   *ngIf="queueCreateResponse"
 >
-  <p-card header="Queue Created">
+  <div class="card shadow" style="max-width: 850px;">
+    <div class="card-body">
+      <div class="card-title h4 fw-bolder">Queue Created</div>
+      <div class="info p-2">
+        <div class="mb-2">
+          <div class="field mb-1">
+            <span class="h6 fw-semibold">Viewer Link : </span>
+            <a
+              class="link-underline-primary link-primary"
+              style="cursor: pointer"
+              >{{ queueCreateResponse.viewer_url }}</a
+            >
+          </div>
+          <div class="d-flex">
+            <span class="px-2">1.</span>
+            <span
+              >The viewer link is designed for candidates and individuals
+              interested in monitoring the queue project's status.</span
+            >
+          </div>
+          <div class="d-flex">
+            <span class="px-2">2.</span>
+            <span
+              >It allows user to seamlessly check the progress of the
+              queue.</span
+            >
+          </div>
+        </div>
+        <hr />
+        <div class="mb-2">
+          <div class="field mb-1">
+            <span class="h6 fw-semibold">Manage Link : </span>
+            <a
+              class="link-underline-danger link-danger"
+              style="cursor: pointer"
+              >{{ queueCreateResponse.manager_url }}</a
+            >
+          </div>
+          <div class="d-flex">
+            <span class="px-2">1.</span>
+            <span
+              >The manager link, on the other hand, is exclusively for
+              individuals actively engaged in interviews, whether internal or
+              external.
+            </span>
+          </div>
+          <div class="d-flex">
+            <span class="px-2">2.</span>
+            <span
+              >Through this secured link, interviewers can efficiently manage
+              and update the queue's status.
+            </span>
+          </div>
+          <div class="d-flex">
+            <span class="px-2">3.</span>
+            <span
+              >To maintain the integrity of the queue management process, we
+              kindly request that you refrain from sharing the manager link with
+              anyone.
+            </span>
+          </div>
+          <div class="d-flex">
+            <span class="px-2">4.</span>
+            <span
+              >Unauthorized access may lead to unintended changes in the
+              queue.</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="h5 fw-semibold ">Important Note</div>
+      <p class="">
+        Please save the manager link securely, as it cannot be displayed again
+        once generated.
+      </p>
+    </div>
+  </div>
+  <!-- <p-card header="Queue Created">
     <ng-template pTemplate="content">
       <div class="field">
         <span>Manage URL: </span>
@@ -59,5 +138,5 @@
         >
       </div>
     </ng-template>
-  </p-card>
+  </p-card> -->
 </div>
