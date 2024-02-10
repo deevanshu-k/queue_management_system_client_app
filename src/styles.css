@@ -30,10 +30,16 @@ body {
   max-width: 340px;
 }
 
-@media screen and (max-width:380px) {
-    .p-toast {
-        max-width: 90%;
-    }
+@media screen and (min-width: 550px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .p-toast {
+    max-width: 90%;
+  }
 }
 
 .p-toast .p-toast-message {
@@ -51,9 +57,12 @@ body {
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
   font-size: 2rem;
 }
-.p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon) {
-    width: 1.5rem !important;
-    height: 1.5rem !important;
+.p-toast
+  .p-toast-message
+  .p-toast-message-content
+  .p-icon:not(.p-toast-icon-close-icon) {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
 }
 .p-toast
   .p-toast-message

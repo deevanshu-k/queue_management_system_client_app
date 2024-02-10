@@ -80,7 +80,7 @@
               <div class="row">
                 <div class="col-2">#{{ candidate.index + 1 }}</div>
                 <div class="col-5">{{ candidate.candidate_id }}</div>
-                <div class="col-5">{{ candidate.name }}</div>
+                <div class="col-5">{{ candidate.name | titlecase }}</div>
               </div>
             </div>
           </div>
@@ -106,7 +106,7 @@
         </ng-template>
         <ng-template pTemplate="footer">
           <div class="text-center text-light-50">
-            2024 Cataline.in | All rights reserved | {{ "sales@cataline.in" }}
+            &copy; 2024 Cataline.in. All rights reserved.
           </div>
         </ng-template>
         <div class="card-header row">
@@ -126,7 +126,7 @@
             <div class="row">
               <div class="col-2">#{{ i + 1 }}</div>
               <div class="col-5">{{ candidate.candidate_id }}</div>
-              <div class="col-5">{{ candidate.name }}</div>
+              <div class="col-5">{{ candidate.name | titlecase }}</div>
             </div>
           </div>
 

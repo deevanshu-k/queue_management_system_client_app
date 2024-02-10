@@ -1,3 +1,7 @@
+* {
+  font-family: "Nunito" !important;
+}
+
 p-toolbar {
   position: sticky;
   top: 0px;
